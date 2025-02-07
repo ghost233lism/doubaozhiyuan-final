@@ -1,0 +1,173 @@
+.container {
+  padding: 20rpx;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.chat-list {
+  flex: 1;
+  padding: 20rpx;
+  overflow-y: auto;
+}
+
+.message-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.message-item {
+  display: flex;
+  margin-bottom: 30rpx;
+  align-items: flex-start;
+}
+
+.message-item.ai {
+  justify-content: flex-start;
+}
+
+.message-item.user {
+  justify-content: flex-end;
+}
+
+.avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background-color: #1296db;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+}
+
+.message-item.user .avatar {
+  background-color: #07c160;
+}
+
+.message-content {
+  max-width: 60%;
+  padding: 20rpx;
+  border-radius: 10rpx;
+  margin: 0 20rpx;
+  word-break: break-all;
+}
+
+.message-item.ai .message-content {
+  background-color: white;
+}
+
+.message-item.user .message-content {
+  background-color: #07c160;
+  color: white;
+}
+
+.input-area {
+  padding: 20rpx 20rpx 0 20rpx;
+  background-color: white;
+  border-top: 1rpx solid #eee;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  background-color: #f5f5f5;
+  border-radius: 50rpx;
+  padding: 10rpx;
+  min-height: 100rpx;
+  box-sizing: border-box;
+}
+
+.message-input {
+  flex: 1;
+  min-height: 80rpx;
+  max-height: 200rpx;
+  padding: 20rpx 90rpx 20rpx 30rpx;
+  font-size: 32rpx;
+  background: transparent;
+  width: 100%;
+  line-height: 40rpx;
+  box-sizing: border-box;
+}
+
+.send-btn {
+  position: absolute;
+  right: 10rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 60rpx !important;   
+  height: 60rpx !important;  
+  padding: 0;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.send-btn[disabled] {
+  opacity: 0.5;
+}
+
+.send-btn::after {
+  border: none;
+}
+
+.send-icon {
+  width: 60rpx !important;   
+  height: 60rpx !important;   
+}
+
+/* 加载动画样式 */
+.loading {
+  min-width: 100rpx;
+  min-height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-dots {
+  display: flex;
+  align-items: center;
+}
+
+.dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background-color: #1296db;
+  margin: 0 6rpx;
+  animation: dot-flashing 1s infinite linear alternate;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes dot-flashing {
+  0% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

@@ -1,0 +1,49 @@
+<view class="chat-container">
+  <!-- 聊天记录区域 -->
+  <scroll-view class="chat-list" scroll-y="true" scroll-into-view="{{scrollToMessage}}">
+    <view class="message-list">
+      <block wx:for="{{messageList}}" wx:key="index">
+        <!-- AI消息 -->
+        <view class="message-item ai" wx:if="{{item.type === 'ai'}}">
+          <view class="avatar">AI</view>
+          <view class="message-content">{{item.content}}</view>
+        </view>
+        <!-- 用户消息 -->
+        <view class="message-item user" wx:if="{{item.type === 'user'}}">
+          <view class="message-content">{{item.content}}</view>
+          <view class="avatar">我</view>
+        </view>
+      </block>
+      <!-- 加载动画 -->
+      <view class="message-item ai" wx:if="{{isLoading}}">
+        <view class="avatar">AI</view>
+        <view class="message-content loading">
+          <view class="loading-dots">
+            <view class="dot"></view>
+            <view class="dot"></view>
+            <view class="dot"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 输入框区域 -->
+  <view class="input-area">
+    <view class="input-wrapper">
+      <textarea class="message-input" 
+              value="{{inputMessage}}" 
+              bindinput="onInputChange"
+              placeholder="输入你的问题，帮你深度解答"
+              auto-height
+              show-confirm-bar="{{false}}"
+              cursor-spacing="20"
+              maxlength="1000"
+              bindconfirm="sendMessage"
+      />
+      <button class="send-btn" bindtap="sendMessage" disabled="{{!canSend || isLoading}}">
+        <image class="send-icon" src="{{canSend ? (isLoading ? '/images/loading.png' : '/images/send-active.png') : '/images/send-inactive.png'}}" />
+      </button>
+    </view>
+  </view>
+</view> 
