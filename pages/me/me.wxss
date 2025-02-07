@@ -1,3 +1,77 @@
 .container {
-  padding: 20rpx;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding-top: 0;
+}
+
+.user-info {
+  background-color: white;
+  width: 100%;
+  box-sizing: border-box;
+  padding-bottom: 0;
+}
+
+.avatar-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: none;
+  padding: 20rpx 0 5rpx;
+  line-height: normal;
+  border: none;
+  width: 100%;
+}
+
+.avatar-wrapper::after {
+  border: none;
+}
+
+.avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  margin-bottom: 10rpx;
+}
+
+.nickname {
+  font-size: 32rpx;
+  color: #333;
+}
+
+.menu-list {
+  background-color: white;
+  width: 100%;
+  position: relative;
+  top: -240rpx;
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx 40rpx;
+  border-bottom: 1rpx solid #eee;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.menu-item-left {
+  display: flex;
+  align-items: center;
+}
+
+.menu-icon {
+  width: 48rpx;
+  height: 48rpx;
+  margin-right: 20rpx;
+}
+
+.arrow {
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.menu-item text {
+  font-size: 30rpx;
+  color: #333;
 } 
