@@ -1,7 +1,13 @@
 <view class="container">
   <!-- 用户信息区域 -->
   <view class="user-info">
-    <button wx:if="{{!hasUserInfo}}" class="avatar-wrapper" bindtap="getUserProfile">
+    <button 
+      wx:if="{{!hasUserInfo}}" 
+      class="avatar-wrapper" 
+      bindtap="getUserProfile"
+      hover-class="none"
+      open-type="getUserInfo"
+    >
       <image class="avatar" src="/images/default-avatar.png" />
       <text class="nickname">点击登录</text>
     </button>
@@ -45,6 +51,15 @@
       <view class="menu-item-left">
         <image class="menu-icon" src="/images/about.png" />
         <text>关于我们</text>
+      </view>
+      <image class="arrow" src="/images/arrow-right.png" />
+    </view>
+
+    <!-- 清除缓存 -->
+    <view class="menu-item" bindtap="clearCache">
+      <view class="menu-item-left">
+        <image class="menu-icon" src="/images/clear.png" />
+        <text>清除缓存</text>
       </view>
       <image class="arrow" src="/images/arrow-right.png" />
     </view>

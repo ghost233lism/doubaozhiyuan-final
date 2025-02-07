@@ -3,12 +3,14 @@
     "pages/home/home",
     "pages/application/application",
     "pages/university/university",
-    "pages/me/me"
+    "pages/me/me",
+    "pages/feedback/feedback",
+    "pages/about/about"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "AI高考志愿",
     "navigationBarTextStyle": "black"
   },
   "style": "v2",
@@ -19,6 +21,7 @@
     "color": "#999999",
     "selectedColor": "#1296db",
     "backgroundColor": "#ffffff",
+    "borderStyle": "black",
     "list": [
       {
         "pagePath": "pages/home/home",

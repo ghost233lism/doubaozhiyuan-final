@@ -20,7 +20,8 @@
     },
     "requestDomain": [
       "https://ark.cn-beijing.volces.com"
-    ]
+    ],
+    "urlCheck": false
   },
   "condition": {},
   "editorSetting": {

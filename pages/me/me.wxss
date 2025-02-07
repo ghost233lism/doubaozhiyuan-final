@@ -9,6 +9,11 @@
   width: 100%;
   box-sizing: border-box;
   padding-bottom: 0;
+  height: 240rpx;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .avatar-wrapper {
@@ -16,10 +21,18 @@
   flex-direction: column;
   align-items: center;
   background: none;
-  padding: 20rpx 0 5rpx;
+  padding: 0;
   line-height: normal;
   border: none;
   width: 100%;
+  position: relative;
+  top: 0;
+}
+
+button.avatar-wrapper {
+  margin: 0;
+  padding: 0;
+  height: auto;
 }
 
 .avatar-wrapper::after {
@@ -36,13 +49,14 @@
 .nickname {
   font-size: 32rpx;
   color: #333;
+  line-height: 1.4;
 }
 
 .menu-list {
   background-color: white;
   width: 100%;
-  position: relative;
-  top: -240rpx;
+  position: absolute;
+  top: 240rpx;
 }
 
 .menu-item {
@@ -74,4 +88,12 @@
 .menu-item text {
   font-size: 30rpx;
   color: #333;
+}
+
+/* 添加清除缓存图标样式 */
+.menu-icon.clear {
+  width: 44rpx;
+  height: 44rpx;
+  margin-right: 24rpx;
+  opacity: 0.9;
 } 

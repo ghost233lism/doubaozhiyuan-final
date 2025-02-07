@@ -1,0 +1,52 @@
+<view class="container">
+  <view class="feedback-form">
+    <!-- 反馈类型选择 -->
+    <view class="section">
+      <view class="section-title">反馈类型</view>
+      <view class="type-list">
+        <view 
+          class="type-item {{selectedType === index ? 'selected' : ''}}" 
+          wx:for="{{feedbackTypes}}" 
+          wx:key="index"
+          bindtap="selectType"
+          data-type="{{index}}"
+        >
+          {{item}}
+        </view>
+      </view>
+    </view>
+
+    <!-- 反馈内容 -->
+    <view class="section">
+      <view class="section-title">反馈内容</view>
+      <textarea 
+        class="feedback-input"
+        placeholder="请详细描述您的问题或建议..."
+        maxlength="500"
+        bindinput="onContentInput"
+        value="{{content}}"
+      ></textarea>
+      <view class="word-count">{{content.length}}/500</view>
+    </view>
+
+    <!-- 联系方式 -->
+    <view class="section">
+      <view class="section-title">联系方式（选填）</view>
+      <input 
+        class="contact-input"
+        placeholder="请留下您的微信或手机号"
+        bindinput="onContactInput"
+        value="{{contact}}"
+      />
+    </view>
+
+    <!-- 提交按钮 -->
+    <button 
+      class="submit-btn {{!canSubmit ? 'disabled' : ''}}"
+      bindtap="submitFeedback"
+      disabled="{{!canSubmit || isSubmitting}}"
+    >
+      提交反馈
+    </button>
+  </view>
+</view> 

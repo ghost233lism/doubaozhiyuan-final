@@ -1,0 +1,51 @@
+<view class="container">
+  <!-- Logo区域 -->
+  <view class="logo-section">
+    <image class="logo" src="/images/logo.png" mode="aspectFit"></image>
+    <text class="app-name">都报志愿开发版</text>
+    <text class="version">版本 1.0.4</text>
+  </view>
+
+  <!-- 简介区域 -->
+  <view class="intro-section">
+    <text class="intro-text">最优解团队创建于2022年9月，致力于打破各个学业阶段的信息差，帮助学生更好进步、完善自我。团队成员来自北京大学、南开大学、哈尔滨工业大学、武汉大学等高校，具有丰富的高考经验和专业知识。</text>
+  </view>
+
+  <!-- 团队优势 -->
+  <view class="feature-section">
+    <view class="section-title">团队优势</view>
+    <view class="feature-list">
+      <view class="feature-item">
+        <text class="feature-name">专业指导</text>
+        <text class="feature-desc">来自名校的专业团队</text>
+      </view>
+      <view class="feature-item">
+        <text class="feature-name">经验丰富</text>
+        <text class="feature-desc">丰富的高考咨询经验</text>
+      </view>
+      <view class="feature-item">
+        <text class="feature-name">真实可靠</text>
+        <text class="feature-desc">真实可信的咨询服务</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 联系方式 -->
+  <view class="contact-section">
+    <view class="section-title">联系我们</view>
+    <view class="contact-item">
+      <text class="label">微信公众号：</text>
+      <text class="value">最优解教育</text>
+    </view>
+    <view class="contact-item">
+      <text class="label">视频号：</text>
+      <text class="value">实验学习小组</text>
+    </view>
+  </view>
+
+  <!-- 版权信息 -->
+  <view class="copyright">
+    <text>Copyright © 2024 沈阳最优解教育科技有限公司</text>
+    <text>专业的人做专业的事，学生更懂学生</text>
+  </view>
+</view> 
