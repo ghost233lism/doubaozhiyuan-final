@@ -7,12 +7,14 @@
   flex-direction: column;
   height: 100vh;
   background-color: #f5f5f5;
+  padding-bottom: 180rpx;
 }
 
 .chat-list {
   flex: 1;
   padding: 20rpx;
-  overflow-y: auto;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 
 .message-list {
@@ -38,12 +40,16 @@
   width: 80rpx;
   height: 80rpx;
   border-radius: 50%;
-  background-color: #1296db;
-  color: white;
+  background-color: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28rpx;
+  overflow: hidden;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
 }
 
 .message-item.user .avatar {
@@ -56,6 +62,13 @@
   border-radius: 10rpx;
   margin: 0 20rpx;
   word-break: break-all;
+  white-space: pre-wrap;
+}
+
+.message-content text {
+  display: block;
+  width: 100%;
+  line-height: 1.6;
 }
 
 .message-item.ai .message-content {
@@ -76,6 +89,7 @@
   left: 0;
   right: 0;
   z-index: 100;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .input-wrapper {
