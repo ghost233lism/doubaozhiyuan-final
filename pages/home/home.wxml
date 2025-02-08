@@ -6,11 +6,19 @@
   </view>
 
   <!-- 聊天记录区域 -->
-  <scroll-view class="chat-list" scroll-y="true" scroll-into-view="{{scrollToMessage}}">
+  <scroll-view 
+    class="chat-list" 
+    scroll-y="true" 
+    scroll-into-view="{{scrollToMessage}}" 
+    bindscroll="onScroll" 
+    scroll-with-animation
+    enhanced="{{true}}"
+    show-scrollbar="{{false}}"
+  >
     <view class="message-list">
       <block wx:for="{{messageList}}" wx:key="index">
         <!-- AI消息 -->
-        <view class="message-item ai" wx:if="{{item.type === 'ai'}}">
+        <view id="message-{{index}}" class="message-item ai" wx:if="{{item.type === 'ai'}}">
           <view class="avatar">
             <image class="avatar-img" src="/images/ai-avatar.png" />
           </view>
@@ -19,7 +27,7 @@
           </view>
         </view>
         <!-- 用户消息 -->
-        <view class="message-item user" wx:if="{{item.type === 'user'}}">
+        <view id="message-{{index}}" class="message-item user" wx:if="{{item.type === 'user'}}">
           <view class="message-content">{{item.content}}</view>
           <view class="avatar">我</view>
         </view>
@@ -37,6 +45,15 @@
       </view>
     </view>
   </scroll-view>
+
+  <!-- 添加悬浮按钮 -->
+  <view 
+    class="scroll-to-bottom {{showScrollBtn ? 'show' : ''}}" 
+    bindtap="scrollToBottom"
+  >
+    <image src="/images/arrow_down_scroll.png" />
+  </view>
+
 
   <!-- 输入框区域 -->
   <view class="input-area">

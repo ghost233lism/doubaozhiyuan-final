@@ -19,28 +19,11 @@ Page({
   },
 
   onLoad() {
-    this.setData({
-      universities: universities,
-      filteredUniversities: universities
-    });
+    this.loadInitialData();
   },
 
   // 加载初始数据
   loadInitialData() {
-    // 获取数据后
-    const universities = [
-      {
-        id: 1,
-        name: '清华大学',
-        logo: '/images/university/tsinghua.png',
-        location: '北京',
-        type: '综合类',
-        level: '985/211',
-        tags: ['世界一流', 'C9联盟']
-      },
-      // ... 更多数据
-    ];
-
     this.setData({
       universities: universities,
       filteredUniversities: universities // 初始显示所有大学
@@ -52,6 +35,12 @@ Page({
     this.setData({
       searchKeyword: e.detail.value
     });
+    // 如果输入框为空，恢复原始列表
+    if (!e.detail.value.trim()) {
+      this.setData({
+        filteredUniversities: this.data.universities
+      });
+    }
   },
 
   // 清除搜索
@@ -59,7 +48,7 @@ Page({
     this.setData({
       searchKeyword: ''
     });
-    this.loadInitialData();
+    this.loadInitialData(); // 重新加载数据
   },
 
   // 执行搜索

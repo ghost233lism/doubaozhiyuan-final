@@ -8,6 +8,7 @@
 .chat-list {
   flex: 1;
   padding: 20rpx;
+  padding-bottom: calc(120rpx + env(safe-area-inset-bottom));
 }
 
 .message-list {
@@ -71,4 +72,65 @@
 .message-item.user .message-content {
   background-color: #07c160;
   color: white;
+}
+
+.action-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20rpx;
+  background: #fff;
+  box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
+}
+
+.action-btn {
+  flex: 1;
+  margin: 0 20rpx;
+  height: 80rpx;
+  border-radius: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  border: none;
+  background: #f5f5f5;
+  position: relative;
+  padding: 0 40rpx;
+}
+
+.action-btn text {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.action-btn image {
+  width: 36rpx;
+  height: 36rpx;
+  position: absolute;
+  left: 40rpx;
+}
+
+.action-btn::after {
+  border: none;
+}
+
+.action-btn.share {
+  background: #07c160;
+  color: #fff;
+}
+
+.action-btn.save {
+  background: #1296db;
+  color: #fff;
+}
+
+.share-canvas {
+  position: fixed;
+  left: -9999px;
+  visibility: hidden;
 } 

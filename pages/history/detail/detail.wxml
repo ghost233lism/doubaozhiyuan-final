@@ -20,4 +20,23 @@
       </block>
     </view>
   </scroll-view>
+
+  <!-- 使用普通 canvas -->
+  <canvas 
+    canvas-id="shareCanvas"
+    class="share-canvas"
+    style="width: 100%; height: 100%;"
+  ></canvas>
+
+  <!-- 底部操作栏 -->
+  <view class="action-bar">
+    <button class="action-btn share" open-type="share">
+      <image src="/images/share.png" />
+      <text>分享对话</text>
+    </button>
+    <button class="action-btn save" bindtap="savePDF">
+      <image src="/images/document.png" />
+      <text>保存文档</text>
+    </button>
+  </view>
 </view> 
