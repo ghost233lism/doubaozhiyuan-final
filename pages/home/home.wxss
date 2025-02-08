@@ -7,7 +7,7 @@
   flex-direction: column;
   height: 100vh;
   background-color: #f5f5f5;
-  padding-bottom: 180rpx;
+  padding-bottom: calc(140rpx + env(safe-area-inset-bottom));
 }
 
 .chat-list {
@@ -89,7 +89,7 @@
   left: 0;
   right: 0;
   z-index: 100;
-  padding-bottom: env(safe-area-inset-bottom);
+  padding-bottom: calc(env(safe-area-inset-bottom) + constant(safe-area-inset-bottom));
 }
 
 .input-wrapper {
@@ -186,28 +186,28 @@
   }
 }
 
-/* 新建对话按钮样式 */
+/* 修改新建对话按钮样式 */
 .new-chat-btn {
   position: fixed;
-  bottom: 40rpx;
-  right: 40rpx;
+  bottom: calc(140rpx + env(safe-area-inset-bottom));
+  right: 30rpx;
   background: #1296db;
   color: white;
   display: flex;
   align-items: center;
-  padding: 20rpx 40rpx;
-  border-radius: 40rpx;
+  padding: 12rpx 24rpx;
+  border-radius: 30rpx;
   box-shadow: 0 4rpx 12rpx rgba(18, 150, 219, 0.2);
   z-index: 100;
 }
 
 .plus-icon {
-  width: 32rpx;
-  height: 32rpx;
-  margin-right: 12rpx;
+  width: 28rpx;
+  height: 28rpx;
+  margin-right: 8rpx;
 }
 
 .new-chat-btn text {
-  font-size: 28rpx;
+  font-size: 26rpx;
   font-weight: 500;
 }

@@ -152,26 +152,29 @@ Page({
 
   // 创建新对话
   createNewChat() {
-    // 清空当前对话内容
-    this.setData({
-      chatHistory: [],
-      inputValue: ''
-    });
+    wx.showModal({
+      title: '提示',
+      content: '确定要开始新对话吗？当前对话将被清空。',
+      success: (res) => {
+        if (res.confirm) {
+          // 清空对话记录
+          this.setData({
+            messageList: [],
+            inputMessage: '',
+            scrollToMessage: null
+          });
 
-    // 添加欢迎消息
-    const welcomeMsg = {
-      role: 'assistant',
-      content: '你好！我是AI志愿填报助手，请问有什么可以帮你？'
-    };
+          // 添加欢迎消息
+          const welcomeMsg = {
+            type: 'ai',
+            content: '你好！我是AI志愿填报助手，请问有什么可以帮你？'
+          };
 
-    this.setData({
-      chatHistory: [welcomeMsg]
-    });
-
-    // 滚动到顶部
-    wx.pageScrollTo({
-      scrollTop: 0,
-      duration: 300
+          this.setData({
+            messageList: [welcomeMsg]
+          });
+        }
+      }
     });
   }
 }); 
