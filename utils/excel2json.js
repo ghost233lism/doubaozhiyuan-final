@@ -35,4 +35,4 @@ fs.writeFileSync(
   `export const universities = ${JSON.stringify(universities, null, 2)};`
 );
 
-console.log(`成功转换 ${universities.length} 所大学的数据`); 
+console.log(`成功转换 ${universities.length} 所大学的数据`);

@@ -5,13 +5,14 @@
 
 /* 搜索栏样式 */
 .search-bar {
-  background: #fff;
-  padding: 20rpx 30rpx;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 100;
+  background: #fff;
+  padding: 20rpx;
+  border-bottom: 1rpx solid #eee;
 }
 
 .search-input-wrap {
@@ -79,14 +80,15 @@
 
 /* 筛选栏样式 */
 .filter-bar {
-  display: flex;
-  background: #fff;
-  padding: 20rpx 30rpx;
   position: fixed;
-  top: 176rpx;
+  top: 120rpx;
   left: 0;
   right: 0;
   z-index: 100;
+  background: #fff;
+  padding: 20rpx;
+  display: flex;
+  justify-content: space-around;
   border-bottom: 1rpx solid #eee;
 }
 
@@ -107,13 +109,17 @@
 
 /* 列表容器样式 */
 .list-container {
-  margin-top: 260rpx;
-  height: calc(100vh - 260rpx);
+  position: absolute;
+  top: 180rpx;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 20rpx;
 }
 
 /* 院校列表样式 */
 .university-list {
-  padding: 20rpx;
+  padding-top: 0;
 }
 
 .university-item {

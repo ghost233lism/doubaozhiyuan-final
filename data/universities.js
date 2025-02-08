@@ -10,7 +10,7 @@ export const universities = [
       "世界一流、C9联盟"
     ],
     "rank": 1,
-    "website": "清华大学官网",
+    "website": "https://www.tsinghua.edu.cn/",
     "description": "清华大学是中国顶尖的综合性大学，以其严谨的学风和卓越的科研成果著称。"
   },
   {
@@ -24,7 +24,7 @@ export const universities = [
       "世界一流、C9联盟"
     ],
     "rank": 2,
-    "website": "北京大学官网",
+    "website": "https://www.pku.edu.cn/",
     "description": "北京大学是中国最著名的高等学府之一，拥有悠久的历史和深厚的文化底蕴。"
   },
   {
@@ -38,7 +38,7 @@ export const universities = [
       "世界一流、C9联盟"
     ],
     "rank": 3,
-    "website": "浙江大学官网",
+    "website": "https://www.zju.edu.cn/",
     "description": "浙江大学是中国东部地区的重要高等学府，以其全面的学科设置和优秀的教学质量著称。"
   },
   {
@@ -52,7 +52,7 @@ export const universities = [
       "世界一流、C9联盟"
     ],
     "rank": 3,
-    "website": "中国科学技术大学官网",
+    "website": "https://www.ustc.edu.cn/",
     "description": "中国科学技术大学是中国科学院直属的高等学府，以培养科技创新人才为宗旨。"
   },
   {
@@ -66,7 +66,7 @@ export const universities = [
       "世界一流、C9联盟"
     ],
     "rank": 4,
-    "website": "复旦大学官网",
+    "website": "https://www.fudan.edu.cn/",
     "description": "复旦大学是中国东部地区的重要高等学府，以其优秀的文科和理科教育著称。"
   },
   {
@@ -80,7 +80,7 @@ export const universities = [
       "世界一流、C9联盟"
     ],
     "rank": 5,
-    "website": "上海交通大学官网",
+    "website": "https://www.sjtu.edu.cn/",
     "description": "上海交通大学是中国东部地区的重要高等学府，以其优秀的工科和医科教育著称。"
   },
   {
@@ -94,7 +94,7 @@ export const universities = [
       "世界一流、C9联盟"
     ],
     "rank": 6,
-    "website": "南京大学官网",
+    "website": "https://www.nju.edu.cn/",
     "description": "南京大学是中国东部地区的重要高等学府，以其全面的学科设置和优秀的教学质量著称。"
   },
   {
@@ -108,7 +108,7 @@ export const universities = [
       "世界一流"
     ],
     "rank": 7,
-    "website": "武汉大学官网",
+    "website": "https://www.whu.edu.cn/",
     "description": "武汉大学是中国中部地区的重要高等学府，以其美丽的校园环境和优秀的教学质量著称。"
   },
   {
@@ -122,7 +122,7 @@ export const universities = [
       "世界一流"
     ],
     "rank": 8,
-    "website": "华中科技大学官网",
+    "website": "https://www.hust.edu.cn/",
     "description": "华中科技大学是中国中部地区的重要高等学府，以其优秀的工科和医科教育著称。"
   },
   {
@@ -136,7 +136,7 @@ export const universities = [
       "世界一流"
     ],
     "rank": 9,
-    "website": "四川大学官网",
+    "website": "https://www.scu.edu.cn/",
     "description": "四川大学是中国西部地区的重要高等学府，以其全面的学科设置和优秀的教学质量著称。"
   }
 ];
