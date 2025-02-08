@@ -1,9 +1,0 @@
-<view class="container">
-  <!-- 现有内容 -->
-
-  <!-- 新建对话按钮 -->
-  <view class="new-chat-btn" bindtap="createNewChat">
-    <image class="plus-icon" src="/images/plus.png" />
-    <text>新建对话</text>
-  </view>
-</view> 
