@@ -1,0 +1,24 @@
+<view class="container">
+  <view class="chat-history-list">
+    <view class="chat-item" 
+          wx:for="{{chatHistory}}" 
+          wx:key="id"
+          bindtap="viewChatDetail"
+          data-id="{{item.id}}"
+    >
+      <view class="chat-info">
+        <view class="chat-title">{{item.firstQuestion}}</view>
+        <view class="chat-time">{{item.time}}</view>
+      </view>
+      <view class="delete-btn" 
+            catchtap="deleteChatHistory" 
+            data-id="{{item.id}}"
+      >
+        <image src="/images/delete.png" />
+      </view>
+    </view>
+    <view class="empty-tip" wx:if="{{!chatHistory.length}}">
+      暂无历史对话记录
+    </view>
+  </view>
+</view> 

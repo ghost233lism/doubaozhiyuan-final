@@ -49,9 +49,8 @@ Page({
 
   // 导航到历史记录
   navigateToHistory() {
-    wx.showToast({
-      title: '功能开发中',
-      icon: 'none'
+    wx.navigateTo({
+      url: '/pages/history/history'
     });
   },
 

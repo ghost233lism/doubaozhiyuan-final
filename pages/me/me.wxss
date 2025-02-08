@@ -96,4 +96,53 @@ button.avatar-wrapper {
   height: 44rpx;
   margin-right: 24rpx;
   opacity: 0.9;
+}
+
+.history-section {
+  margin-top: 20rpx;
+  background: #fff;
+  padding: 0 30rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 500;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #eee;
+}
+
+.chat-history-list {
+  padding: 20rpx 0;
+}
+
+.chat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #eee;
+}
+
+.chat-info {
+  flex: 1;
+}
+
+.chat-title {
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.chat-time {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.delete-btn {
+  padding: 20rpx;
+}
+
+.delete-btn image {
+  width: 32rpx;
+  height: 32rpx;
 } 

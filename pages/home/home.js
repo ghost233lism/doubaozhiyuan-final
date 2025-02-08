@@ -154,14 +154,42 @@ Page({
   createNewChat() {
     wx.showModal({
       title: '提示',
-      content: '确定要开始新对话吗？当前对话将被清空。',
+      content: '确定要开始新对话吗？当前对话将被保存到历史记录。',
       success: (res) => {
         if (res.confirm) {
-          // 清空对话记录
+          // 保存当前对话到历史记录
+          if (this.data.messageList.length > 0) {
+            try {
+              const chatHistory = wx.getStorageSync('chatHistory') || [];
+              const currentChat = {
+                id: Date.now(),
+                time: new Date().toLocaleString('zh-CN', {
+                  year: 'numeric',
+                  month: '2-digit',
+                  day: '2-digit',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  hour12: false
+                }),
+                messages: this.data.messageList,
+                firstQuestion: this.data.messageList.find(msg => msg.type === 'user')?.content || '新对话',
+              };
+              
+              chatHistory.unshift(currentChat);
+              wx.setStorageSync('chatHistory', chatHistory);
+            } catch (error) {
+              console.error('保存历史记录失败：', error);
+              wx.showToast({
+                title: '保存失败',
+                icon: 'none'
+              });
+            }
+          }
+
+          // 清空当前对话
           this.setData({
             messageList: [],
-            inputMessage: '',
-            scrollToMessage: null
+            inputMessage: ''
           });
 
           // 添加欢迎消息

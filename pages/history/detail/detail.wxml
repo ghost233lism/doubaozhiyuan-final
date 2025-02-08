@@ -1,0 +1,23 @@
+<view class="chat-container">
+  <!-- 聊天记录区域 -->
+  <scroll-view class="chat-list" scroll-y>
+    <view class="message-list">
+      <block wx:for="{{messageList}}" wx:key="index">
+        <!-- AI消息 -->
+        <view class="message-item ai" wx:if="{{item.type === 'ai'}}">
+          <view class="avatar">
+            <image class="avatar-img" src="/images/ai-avatar.png" />
+          </view>
+          <view class="message-content">
+            <text space="emsp" decode="{{true}}">{{item.content}}</text>
+          </view>
+        </view>
+        <!-- 用户消息 -->
+        <view class="message-item user" wx:if="{{item.type === 'user'}}">
+          <view class="message-content">{{item.content}}</view>
+          <view class="avatar">我</view>
+        </view>
+      </block>
+    </view>
+  </scroll-view>
+</view> 

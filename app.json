@@ -5,7 +5,9 @@
     "pages/application/application",
     "pages/me/me",
     "pages/feedback/feedback",
-    "pages/about/about"
+    "pages/about/about",
+    "pages/history/history",
+    "pages/history/detail/detail"
   ],
   "window": {
     "backgroundTextStyle": "light",
