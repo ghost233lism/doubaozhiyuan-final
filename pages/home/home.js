@@ -10,7 +10,9 @@ Page({
     scrollToMessage: '',
     canSend: false,
     isLoading: false,  // 添加加载状态
-    apiKey: '3aacb778-7fe0-4b0c-9db1-b7d213062428'  // 存储 API Key
+    apiKey: '3aacb778-7fe0-4b0c-9db1-b7d213062428',  // 存储 API Key
+    chatHistory: [],
+    inputValue: ''
   },
 
   // 添加键盘事件处理
@@ -146,5 +148,30 @@ Page({
         isLoading: false
       });
     }
+  },
+
+  // 创建新对话
+  createNewChat() {
+    // 清空当前对话内容
+    this.setData({
+      chatHistory: [],
+      inputValue: ''
+    });
+
+    // 添加欢迎消息
+    const welcomeMsg = {
+      role: 'assistant',
+      content: '你好！我是AI志愿填报助手，请问有什么可以帮你？'
+    };
+
+    this.setData({
+      chatHistory: [welcomeMsg]
+    });
+
+    // 滚动到顶部
+    wx.pageScrollTo({
+      scrollTop: 0,
+      duration: 300
+    });
   }
 }); 

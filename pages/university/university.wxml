@@ -1,3 +1,133 @@
 <view class="container">
-  <text>院校页面</text>
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <view class="search-input-wrap">
+      <image class="search-icon" src="/images/search.png" />
+      <input 
+        class="search-input" 
+        placeholder="搜索学校/专业" 
+        value="{{searchKeyword}}"
+        bindinput="onSearchInput"
+        bindconfirm="onSearch"
+      />
+      <image 
+        wx:if="{{searchKeyword}}" 
+        class="clear-icon" 
+        src="/images/clear_search.png" 
+        bindtap="clearSearch"
+      />
+    </view>
+  </view>
+
+  <!-- 切换标签 -->
+  <view class="tabs">
+    <view 
+      class="tab-item {{currentTab === 'university' ? 'active' : ''}}" 
+      bindtap="switchTab" 
+      data-tab="university"
+    >院校库</view>
+    <view 
+      class="tab-item {{currentTab === 'major' ? 'active' : ''}}" 
+      bindtap="switchTab" 
+      data-tab="major"
+    >专业库</view>
+  </view>
+
+  <!-- 筛选条件 -->
+  <view class="filter-bar">
+    <view class="filter-item" bindtap="showRegionFilter">
+      <text>{{selectedRegion || '地区'}}</text>
+      <image class="arrow-icon" src="/images/arrow-down.png" />
+    </view>
+    <view class="filter-item" bindtap="showTypeFilter">
+      <text>{{selectedType || '类型'}}</text>
+      <image class="arrow-icon" src="/images/arrow-down.png" />
+    </view>
+    <view class="filter-item" bindtap="showLevelFilter">
+      <text>{{selectedLevel || '层次'}}</text>
+      <image class="arrow-icon" src="/images/arrow-down.png" />
+    </view>
+  </view>
+
+  <!-- 院校列表 -->
+  <scroll-view 
+    wx:if="{{currentTab === 'university'}}"
+    class="list-container"
+    scroll-y
+    bindscrolltolower="loadMore"
+  >
+    <view class="university-list">
+      <view 
+        class="university-item" 
+        wx:for="{{universities}}" 
+        wx:key="id"
+        bindtap="navigateToUniversityDetail"
+        data-id="{{item.id}}"
+      >
+        <image class="university-logo" src="{{item.logo}}" mode="aspectFit" />
+        <view class="university-info">
+          <view class="university-name">{{item.name}}</view>
+          <view class="university-meta">
+            <text class="meta-item">{{item.location}}</text>
+            <text class="meta-item">{{item.type}}</text>
+            <text class="meta-item">{{item.level}}</text>
+          </view>
+          <view class="university-tags">
+            <text class="tag" wx:for="{{item.tags}}" wx:key="*this">{{item}}</text>
+          </view>
+        </view>
+        <image class="arrow" src="/images/arrow-right.png" />
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 专业列表 -->
+  <scroll-view 
+    wx:else
+    class="list-container"
+    scroll-y
+    bindscrolltolower="loadMore"
+  >
+    <view class="major-list">
+      <view 
+        class="major-item" 
+        wx:for="{{majors}}" 
+        wx:key="id"
+        bindtap="navigateToMajorDetail"
+        data-id="{{item.id}}"
+      >
+        <view class="major-info">
+          <view class="major-name">{{item.name}}</view>
+          <view class="major-category">{{item.category}}</view>
+          <view class="major-meta">
+            <text class="meta-item">就业率 {{item.employmentRate}}</text>
+            <text class="meta-item">{{item.degreeType}}</text>
+          </view>
+        </view>
+        <image class="arrow" src="/images/arrow-right.png" />
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 筛选弹窗 -->
+  <view class="filter-popup" wx:if="{{showFilter}}">
+    <view class="filter-mask" bindtap="hideFilter"></view>
+    <view class="filter-content">
+      <view class="filter-header">
+        <text>{{filterTitle}}</text>
+        <image class="close-icon" src="/images/close.png" bindtap="hideFilter" />
+      </view>
+      <scroll-view class="filter-options" scroll-y>
+        <view 
+          class="filter-option {{item.selected ? 'selected' : ''}}"
+          wx:for="{{filterOptions}}"
+          wx:key="value"
+          bindtap="selectFilterOption"
+          data-value="{{item.value}}"
+        >
+          {{item.label}}
+        </view>
+      </scroll-view>
+    </view>
+  </view>
 </view> 

@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/home/home",
-    "pages/application/application",
     "pages/university/university",
+    "pages/application/application",
     "pages/me/me",
     "pages/feedback/feedback",
     "pages/about/about"
@@ -10,7 +10,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "AI高考志愿",
+    "navigationBarTitleText": "都报志愿",
     "navigationBarTextStyle": "black"
   },
   "style": "v2",
@@ -25,7 +25,7 @@
     "list": [
       {
         "pagePath": "pages/home/home",
-        "text": "首页",
+        "text": "AI问答",
         "iconPath": "images/home.png",
         "selectedIconPath": "images/home-active.png"
       },

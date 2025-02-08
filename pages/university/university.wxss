@@ -1,3 +1,270 @@
 .container {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+/* 搜索栏样式 */
+.search-bar {
+  background: #fff;
+  padding: 20rpx 30rpx;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.search-input-wrap {
+  display: flex;
+  align-items: center;
+  background: #f5f5f5;
+  border-radius: 8rpx;
+  padding: 16rpx 24rpx;
+}
+
+.search-icon {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 16rpx;
+}
+
+.search-input {
+  flex: 1;
+  font-size: 28rpx;
+}
+
+.clear-icon {
+  width: 32rpx;
+  height: 32rpx;
+  padding: 10rpx;
+}
+
+/* 标签页样式 */
+.tabs {
+  display: flex;
+  background: #fff;
+  padding: 0 30rpx;
+  position: fixed;
+  top: 100rpx;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 24rpx 0;
+  font-size: 30rpx;
+  color: #666;
+  position: relative;
+}
+
+.tab-item.active {
+  color: #1296db;
+  font-weight: 500;
+}
+
+.tab-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40rpx;
+  height: 4rpx;
+  background: #1296db;
+  border-radius: 2rpx;
+}
+
+/* 筛选栏样式 */
+.filter-bar {
+  display: flex;
+  background: #fff;
+  padding: 20rpx 30rpx;
+  position: fixed;
+  top: 176rpx;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  border-bottom: 1rpx solid #eee;
+}
+
+.filter-item {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28rpx;
+  color: #666;
+}
+
+.arrow-icon {
+  width: 24rpx;
+  height: 24rpx;
+  margin-left: 8rpx;
+}
+
+/* 列表容器样式 */
+.list-container {
+  margin-top: 260rpx;
+  height: calc(100vh - 260rpx);
+}
+
+/* 院校列表样式 */
+.university-list {
   padding: 20rpx;
+}
+
+.university-item {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  border-radius: 12rpx;
+}
+
+.university-logo {
+  width: 100rpx;
+  height: 100rpx;
+  margin-right: 24rpx;
+  border-radius: 8rpx;
+}
+
+.university-info {
+  flex: 1;
+}
+
+.university-name {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 12rpx;
+}
+
+.university-meta {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+
+.meta-item {
+  font-size: 24rpx;
+  color: #666;
+  margin-right: 16rpx;
+}
+
+.university-tags {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tag {
+  font-size: 22rpx;
+  color: #1296db;
+  background: rgba(18, 150, 219, 0.1);
+  padding: 4rpx 12rpx;
+  border-radius: 4rpx;
+  margin-right: 12rpx;
+  margin-bottom: 8rpx;
+}
+
+/* 专业列表样式 */
+.major-list {
+  padding: 20rpx;
+}
+
+.major-item {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  border-radius: 12rpx;
+}
+
+.major-info {
+  flex: 1;
+}
+
+.major-name {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 12rpx;
+}
+
+.major-category {
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 12rpx;
+}
+
+.major-meta {
+  display: flex;
+  align-items: center;
+}
+
+/* 筛选弹窗样式 */
+.filter-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+
+.filter-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.filter-content {
+  position: absolute;
+  top: 260rpx;
+  left: 0;
+  right: 0;
+  background: #fff;
+  max-height: 60vh;
+  border-radius: 0 0 24rpx 24rpx;
+}
+
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.close-icon {
+  width: 32rpx;
+  height: 32rpx;
+  padding: 10rpx;
+}
+
+.filter-options {
+  max-height: calc(60vh - 92rpx);
+}
+
+.filter-option {
+  padding: 24rpx 30rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.filter-option.selected {
+  color: #1296db;
+  background: rgba(18, 150, 219, 0.1);
+}
+
+.arrow {
+  width: 32rpx;
+  height: 32rpx;
 } 

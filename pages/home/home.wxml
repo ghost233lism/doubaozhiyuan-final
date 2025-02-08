@@ -47,8 +47,6 @@
               fixed="true"
               confirm-type="send"
               confirm-hold="{{true}}"
-              hold-keyboard="{{true}}"
-              adjust-position="{{false}}"
       />
       <button class="send-btn" bindtap="sendMessage" disabled="{{!canSend || isLoading}}">
         <image class="send-icon" src="{{canSend ? (isLoading ? '/images/loading.png' : '/images/send-active.png') : '/images/send-inactive.png'}}" />

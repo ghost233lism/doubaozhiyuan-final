@@ -1,0 +1,24 @@
+/* 新建对话按钮样式 */
+.new-chat-btn {
+  position: fixed;
+  bottom: 40rpx;
+  right: 40rpx;
+  background: #1296db;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 20rpx 40rpx;
+  border-radius: 40rpx;
+  box-shadow: 0 4rpx 12rpx rgba(18, 150, 219, 0.2);
+}
+
+.plus-icon {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 12rpx;
+}
+
+.new-chat-btn text {
+  font-size: 28rpx;
+  font-weight: 500;
+} 
