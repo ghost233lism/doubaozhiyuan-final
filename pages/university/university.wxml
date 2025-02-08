@@ -59,7 +59,7 @@
     <view class="university-list">
       <view 
         class="university-item" 
-        wx:for="{{universities}}" 
+        wx:for="{{filteredUniversities}}" 
         wx:key="id"
         bindtap="navigateToUniversityDetail"
         data-id="{{item.id}}"
