@@ -4,13 +4,23 @@
     <view class="profile-card" wx:for="{{profiles}}" wx:key="id">
       <view class="profile-info">
         <text class="profile-name">{{item.name}}</text>
-        <text class="profile-detail">{{item.province}} | {{item.score}}分 | 排名{{item.rank}}</text>
+        <text class="profile-detail">{{item.year}}年 | {{item.province}} | {{item.score}}分 | 排名{{item.rank}}</text>
+        
+        <!-- 用户选择的兴趣 -->
         <view class="profile-interests">
           <text class="interest-tag" wx:for="{{item.interests}}" wx:key="*this">{{item}}</text>
         </view>
+        
+        <!-- 测试推荐的专业 -->
+        <view class="profile-recommendations" wx:if="{{item.testResult && item.testResult.length > 0}}">
+          <text class="recommendation-title">测试推荐专业：</text>
+          <view class="recommendation-tags">
+            <text class="recommendation-tag" wx:for="{{item.testResult}}" wx:key="*this">{{item}}</text>
+          </view>
+        </view>
       </view>
       <view class="profile-actions">
-        <button class="action-btn edit">编辑</button>
+        <button class="action-btn edit" bindtap="editProfile" data-profile="{{item}}">编辑</button>
         <button class="action-btn delete" bindtap="deleteProfile" data-id="{{item.id}}">删除</button>
       </view>
     </view>
@@ -27,7 +37,7 @@
     <view class="modal-mask" bindtap="closeModals"></view>
     <view class="modal-content">
       <view class="modal-header">
-        <text class="modal-title">添加个体</text>
+        <text class="modal-title">{{isEditing ? '编辑个体' : '添加个体'}}</text>
         <text class="step-info">第 {{currentStep + 1}}/5 步</text>
       </view>
 
@@ -42,10 +52,16 @@
         />
       </view>
 
-      <!-- 步骤2：选择省份 -->
+      <!-- 步骤2：选择省份和年份 -->
       <view class="step-content" wx:if="{{currentStep === 1}}">
         <view class="province-selector" bindtap="showProvinceSelector">
           <text>{{formData.province || '请选择省份'}}</text>
+          <image class="arrow-icon" src="/images/arrow-down.png" />
+        </view>
+        
+        <!-- 添加年份选择器 -->
+        <view class="year-selector" bindtap="showYearPicker">
+          <text>{{formData.year || '请选择高考年份'}}</text>
           <image class="arrow-icon" src="/images/arrow-down.png" />
         </view>
       </view>
@@ -118,6 +134,25 @@
           hover-class="hover"
         >
           {{item}}
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 添加年份选择弹窗 -->
+  <view class="year-modal" wx:if="{{showYearModal}}">
+    <view class="modal-mask" bindtap="closeModals"></view>
+    <view class="year-content">
+      <view class="year-grid">
+        <view 
+          class="year-item {{formData.year === item ? 'selected' : ''}}"
+          wx:for="{{years}}"
+          wx:key="*this"
+          bindtap="selectYear"
+          data-year="{{item}}"
+          hover-class="hover"
+        >
+          {{item}}年
         </view>
       </view>
     </view>

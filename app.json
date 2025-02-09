@@ -8,7 +8,8 @@
     "pages/about/about",
     "pages/history/history",
     "pages/history/detail/detail",
-    "pages/school-detail/school-detail"
+    "pages/school-detail/school-detail",
+    "pages/personality-test/personality-test"
   ],
   "window": {
     "backgroundTextStyle": "light",
