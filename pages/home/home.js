@@ -15,6 +15,7 @@ Page({
     inputValue: '',
     showScrollBtn: false,  // 控制按钮显示
     scrollTop: 0,         // 记录滚动位置
+    isScrolling: false,  // 添加新的状态来控制滚动动画
   },
 
   // 添加键盘事件处理
@@ -88,7 +89,7 @@ Profile:
 - 即使考生的分数较高，也要明白分数高的考生之间也有好坏之分，不要笼统地直接推荐最好的院校，而是给出切合实际的院校推荐
 - 推荐了切合实际的学校后，就不要推荐太好的学校和专业了
 
-你的回答语气应该是专业、严谨的，不要使用“呀”，“呢”等语气词。
+你的回答语气应该是专业、严谨的，不要使用"呀"，"呢"等语气词。
 
 面对比较笼统的问题，不要着急给出答案，向用户提出一些问题，获取到更多信息后，再给出答案。
 
@@ -177,19 +178,18 @@ OutputFormat:
       content: this.data.inputMessage.trim()
     };
 
-    // 添加用户消息
     const newMessageList = [...this.data.messageList, userMessage];
     
     this.setData({
       messageList: newMessageList,
       inputMessage: '',
       canSend: false,
-      isLoading: true,  // 设置加载状态
+      isLoading: true,
+      showScrollBtn: false,
       scrollToMessage: `message-${newMessageList.length - 1}`
     });
 
     try {
-      // 调用豆包API获取回复
       const aiResponse = await this.callDouBaoAPI(userMessage.content);
       
       const aiMessage = {
@@ -201,11 +201,15 @@ OutputFormat:
       
       this.setData({
         messageList: updatedMessageList,
-        scrollToMessage: `message-${updatedMessageList.length - 1}`
+        scrollToMessage: `message-${updatedMessageList.length - 1}`,
+        showScrollBtn: false
       });
 
-      // 在消息发送完成后滚动到底部
-      this.scrollToBottom();
+      // 确保消息发送后滚动到底部
+      setTimeout(() => {
+        this.scrollToBottom();
+      }, 100);
+
     } catch (error) {
       wx.showToast({
         title: '发送失败，请重试',
@@ -272,47 +276,5 @@ OutputFormat:
         }
       }
     });
-  },
-
-  // 监听滚动事件
-  onScroll(e) {
-    const scrollTop = e.detail.scrollTop;
-    const query = wx.createSelectorQuery();
-    query.select('.chat-list').boundingClientRect((rect) => {
-      query.selectViewport().scrollOffset(viewport => {
-        if (rect) {
-          // 计算是否在底部
-          const isBottom = scrollTop + rect.height >= e.detail.scrollHeight - 100;
-          this.setData({
-            showScrollBtn: !isBottom,
-            scrollTop: scrollTop
-          });
-        }
-      }).exec();
-    }).exec();
-  },
-
-  // 滚动到底部
-  scrollToBottom() {
-    const query = wx.createSelectorQuery();
-    query.select('.chat-list').boundingClientRect((rect) => {
-      if (rect) {
-        // 获取最后一条消息的索引
-        const lastIndex = this.data.messageList.length - 1;
-        if (lastIndex >= 0) {
-          this.setData({
-            scrollToMessage: `message-${lastIndex}`,
-            showScrollBtn: false
-          }, () => {
-            // 确保消息列表中的每个消息都有唯一的 id
-            const messageList = this.data.messageList.map((msg, index) => ({
-              ...msg,
-              id: `message-${index}`
-            }));
-            this.setData({ messageList });
-          });
-        }
-      }
-    }).exec();
   },
 }); 

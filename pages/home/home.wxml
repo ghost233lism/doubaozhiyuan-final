@@ -10,11 +10,10 @@
     class="chat-list" 
     scroll-y="true" 
     scroll-into-view="{{scrollToMessage}}" 
-    bindscroll="onScroll" 
     scroll-with-animation
     enhanced="{{true}}"
     show-scrollbar="{{false}}"
-  >
+    scroll-anchoring="{{true}}">
     <view class="message-list">
       <block wx:for="{{messageList}}" wx:key="index">
         <!-- AI消息 -->
@@ -45,15 +44,6 @@
       </view>
     </view>
   </scroll-view>
-
-  <!-- 添加悬浮按钮 -->
-  <view 
-    class="scroll-to-bottom {{showScrollBtn ? 'show' : ''}}" 
-    bindtap="scrollToBottom"
-  >
-    <image src="/images/arrow_down_scroll.png" />
-  </view>
-
 
   <!-- 输入框区域 -->
   <view class="input-area">

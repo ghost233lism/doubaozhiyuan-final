@@ -15,7 +15,8 @@ Page({
     page: 1,
     loading: false,
     hasMore: true,
-    filteredUniversities: []
+    filteredUniversities: [],
+    handleSchoolTap: null
   },
 
   onLoad() {
@@ -274,6 +275,15 @@ Page({
 
     this.setData({
       filteredUniversities: filtered
+    });
+  },
+
+  // 添加点击学校卡片的处理函数
+  handleSchoolTap(e) {
+    const schoolId = e.currentTarget.dataset.id;
+    console.log('点击的学校id:', schoolId); // 添加调试日志
+    wx.navigateTo({
+      url: `/pages/school-detail/school-detail?id=${schoolId}`
     });
   }
 }); 

@@ -15,6 +15,7 @@
   padding: 20rpx;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
+  padding-bottom: 120rpx;
 }
 
 .message-list {
@@ -210,31 +211,4 @@
 .new-chat-btn text {
   font-size: 26rpx;
   font-weight: 500;
-}
-
-.scroll-to-bottom {
-  position: fixed;
-  left: 30rpx;
-  bottom: 180rpx;
-  width: 80rpx;
-  height: 80rpx;
-  background: rgba(0, 0, 0, 0.6);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transform: translateY(100rpx);
-  transition: all 0.3s ease;
-  z-index: 100;
-}
-
-.scroll-to-bottom.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.scroll-to-bottom image {
-  width: 40rpx;
-  height: 40rpx;
 }

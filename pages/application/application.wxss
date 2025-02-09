@@ -1,3 +1,334 @@
 .container {
   padding: 20rpx;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.profiles-list {
+  margin-bottom: 120rpx;
+}
+
+.profile-card {
+  background: #fff;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.profile-info {
+  margin-bottom: 20rpx;
+}
+
+.profile-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.profile-detail {
+  font-size: 28rpx;
+  color: #666;
+  margin: 10rpx 0;
+  display: block;
+}
+
+.profile-interests {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+}
+
+.interest-tag {
+  font-size: 24rpx;
+  color: #1296db;
+  background: #e6f4ff;
+  padding: 4rpx 16rpx;
+  border-radius: 20rpx;
+}
+
+.profile-actions {
+  display: flex;
+  gap: 20rpx;
+}
+
+.action-btn {
+  flex: 1;
+  font-size: 28rpx;
+  padding: 10rpx 0;
+  border-radius: 8rpx;
+}
+
+.action-btn.edit {
+  background: #1296db;
+  color: #fff;
+}
+
+.action-btn.delete {
+  background: #ff4d4f;
+  color: #fff;
+}
+
+.add-btn {
+  position: fixed;
+  bottom: 40rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1296db;
+  color: #fff;
+  padding: 20rpx 60rpx;
+  border-radius: 40rpx;
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+.add-icon {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+
+.modal-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-radius: 24rpx 24rpx 0 0;
+  padding: 30rpx;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.modal-title {
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.step-info {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.step-content {
+  margin-bottom: 30rpx;
+}
+
+.input {
+  background: #f5f5f5;
+  padding: 20rpx;
+  border-radius: 8rpx;
+  margin-bottom: 20rpx;
+}
+
+.province-selector {
+  background: #f5f5f5;
+  padding: 20rpx;
+  border-radius: 8rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.arrow-icon {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.interests-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20rpx;
+}
+
+.interest-item {
+  padding: 10rpx 20rpx;
+  border: 1px solid #ddd;
+  border-radius: 8rpx;
+  margin: 10rpx;
+  font-size: 28rpx;
+}
+
+.interest-item.selected {
+  background-color: #e6f3ff;
+  border-color: #91caff;
+}
+
+.tip {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 20rpx;
+  display: block;
+}
+
+.test-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+}
+
+.btn {
+  background: #1296db;
+  color: #fff;
+  border-radius: 8rpx;
+  padding: 20rpx 0;
+}
+
+.province-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1001;
+}
+
+.province-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-radius: 24rpx 24rpx 0 0;
+  padding: 30rpx;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.province-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20rpx;
+}
+
+.province-item {
+  text-align: center;
+  padding: 20rpx;
+  background: #f5f5f5;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  position: relative;
+  border: 2rpx solid transparent;
+}
+
+.province-item.hover {
+  opacity: 0.9;
+}
+
+.province-item.selected {
+  background: #e6f4ff;
+  color: #1296db;
+  border-color: #1296db;
+  font-weight: bold;
+}
+
+/* 省份选择器样式 */
+.province-grid .province-item {
+  text-align: center;
+  padding: 20rpx;
+  background: #f5f5f5;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  position: relative;
+  transition: all 0.3s ease;
+  border: 2rpx solid transparent;
+}
+
+.province-grid .province-item.selected {
+  background: #1296db;
+  color: #fff;
+  border-color: #1296db;
+  font-weight: bold;
+}
+
+/* 兴趣方向选择样式 */
+.interests-grid .interest-item {
+  text-align: center;
+  padding: 20rpx;
+  background: #f5f5f5;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  position: relative;
+  transition: all 0.3s ease;
+  border: 2rpx solid transparent;
+}
+
+.interests-grid .interest-item.selected {
+  background: #e6f4ff;
+  color: #1296db;
+  border-color: #1296db;
+  font-weight: bold;
+}
+
+.interests-grid .interest-item.selected::after {
+  content: '✓';
+  position: absolute;
+  top: 4rpx;
+  right: 4rpx;
+  font-size: 24rpx;
+  color: #1296db;
+}
+
+/* 兴趣选择区域样式优化 */
+.interest-area {
+  padding: 10rpx 0;
+}
+
+.interest-title {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 20rpx;
+}
+
+.interest-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 改为3列，更适合8个选项 */
+  gap: 12rpx; /* 统一的间距 */
+}
+
+.interest-item {
+  padding: 12rpx 0;
+  font-size: 26rpx;
+  text-align: center;
+  background: #f5f5f5;
+  border-radius: 6rpx;
+  color: #666;
+  transition: all 0.3s ease;
+}
+
+.interest-item.selected {
+  background-color: #e6f3ff;
+  border-color: #91caff;
+  color: #1296db;
+}
+
+/* 移除之前的样式 */
+.interests-grid,
+.province-grid .province-item,
+.interests-grid .interest-item {
+  /* 删除或注释掉这些旧样式 */
 } 

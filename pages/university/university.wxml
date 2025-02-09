@@ -61,7 +61,7 @@
         class="university-item" 
         wx:for="{{filteredUniversities}}" 
         wx:key="id"
-        bindtap="navigateToUniversityDetail"
+        bindtap="handleSchoolTap"
         data-id="{{item.id}}"
       >
         <image class="university-logo" src="{{item.logo}}" mode="aspectFit" />

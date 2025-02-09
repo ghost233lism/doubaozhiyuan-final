@@ -1,0 +1,85 @@
+<view class="container">
+  <view wx:if="{{loading}}" class="loading">
+    <loading>加载中...</loading>
+  </view>
+  
+  <view wx:else class="school-detail">
+    <!-- 学校基本信息 -->
+    <view class="header">
+      <image class="school-logo" 
+             src="{{school.logo || '/images/default-university-logo.png'}}" 
+             mode="aspectFit"/>
+      <view class="school-title">
+        <text class="school-name">{{school.name}}</text>
+        <view class="school-tags">
+          <text class="tag">{{school.type}}</text>
+          <text class="tag">{{school.location}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 学校等级 -->
+    <view class="section" wx:if="{{school.level}}">
+      <view class="section-title">学校等级</view>
+      <view class="level-info">{{school.level}}</view>
+    </view>
+
+    <!-- 学校简介 -->
+    <view class="section" wx:if="{{school.description}}">
+      <view class="section-title">学校简介</view>
+      <view class="description">{{school.description}}</view>
+    </view>
+
+    <!-- 基本信息 -->
+    <view class="section">
+      <view class="section-title">基本信息</view>
+      <view class="info-list">
+        <view class="info-item" wx:if="{{school.established}}">
+          <text class="label">创办时间：</text>
+          <text class="value">{{school.established}}</text>
+        </view>
+        <view class="info-item" wx:if="{{school.students}}">
+          <text class="label">在校生规模：</text>
+          <text class="value">{{school.students}}</text>
+        </view>
+        <view class="info-item" wx:if="{{school.academicians}}">
+          <text class="label">院士人数：</text>
+          <text class="value">{{school.academicians}}</text>
+        </view>
+        <view class="info-item" wx:if="{{school.keyLabs}}">
+          <text class="label">重点实验室：</text>
+          <text class="value">{{school.keyLabs}}</text>
+        </view>
+        <view class="info-item" wx:if="{{school.website}}">
+          <text class="label">官方网站：</text>
+          <text class="value link" bindtap="copyWebsite" data-url="{{school.website}}">{{school.website}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 特色优势 -->
+    <view class="section" wx:if="{{school.features.length > 0}}">
+      <view class="section-title">特色优势</view>
+      <view class="features-list">
+        <view class="feature-item" wx:for="{{school.features}}" wx:key="*this">
+          <text class="dot">•</text>
+          <text>{{item}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 优势专业 -->
+    <view class="section" wx:if="{{school.majors.length > 0}}">
+      <view class="section-title">优势专业</view>
+      <view class="majors-list">
+        <view class="major-item" 
+              wx:for="{{school.majors}}" 
+              wx:key="*this"
+              bindtap="navigateToMajor"
+              data-major="{{item}}">
+          {{item}}
+        </view>
+      </view>
+    </view>
+  </view>
+</view> 

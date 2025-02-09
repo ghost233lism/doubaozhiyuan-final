@@ -1,3 +1,125 @@
 <view class="container">
-  <text>申请页面</text>
+  <!-- 个体列表 -->
+  <view class="profiles-list">
+    <view class="profile-card" wx:for="{{profiles}}" wx:key="id">
+      <view class="profile-info">
+        <text class="profile-name">{{item.name}}</text>
+        <text class="profile-detail">{{item.province}} | {{item.score}}分 | 排名{{item.rank}}</text>
+        <view class="profile-interests">
+          <text class="interest-tag" wx:for="{{item.interests}}" wx:key="*this">{{item}}</text>
+        </view>
+      </view>
+      <view class="profile-actions">
+        <button class="action-btn edit">编辑</button>
+        <button class="action-btn delete" bindtap="deleteProfile" data-id="{{item.id}}">删除</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 添加按钮 -->
+  <view class="add-btn" bindtap="showAddProfile">
+    <image class="add-icon" src="/images/add.png" />
+    <text>添加个体</text>
+  </view>
+
+  <!-- 添加个体弹窗 -->
+  <view class="modal" wx:if="{{showAddModal}}">
+    <view class="modal-mask" bindtap="closeModals"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="modal-title">添加个体</text>
+        <text class="step-info">第 {{currentStep + 1}}/5 步</text>
+      </view>
+
+      <!-- 步骤1：输入姓名 -->
+      <view class="step-content" wx:if="{{currentStep === 0}}">
+        <input 
+          class="input" 
+          placeholder="请输入姓名" 
+          value="{{formData.name}}"
+          bindinput="handleInput"
+          data-field="name"
+        />
+      </view>
+
+      <!-- 步骤2：选择省份 -->
+      <view class="step-content" wx:if="{{currentStep === 1}}">
+        <view class="province-selector" bindtap="showProvinceSelector">
+          <text>{{formData.province || '请选择省份'}}</text>
+          <image class="arrow-icon" src="/images/arrow-down.png" />
+        </view>
+      </view>
+
+      <!-- 步骤3：输入分数和排名 -->
+      <view class="step-content" wx:if="{{currentStep === 2}}">
+        <input 
+          class="input" 
+          type="number" 
+          placeholder="请输入高考分数" 
+          value="{{formData.score}}"
+          bindinput="handleInput"
+          data-field="score"
+        />
+        <input 
+          class="input" 
+          type="number" 
+          placeholder="请输入省排名" 
+          value="{{formData.rank}}"
+          bindinput="handleInput"
+          data-field="rank"
+        />
+      </view>
+
+      <!-- 步骤4：选择兴趣方向 -->
+      <view class="step-content" wx:if="{{currentStep === 3}}">
+        <view class="interest-area">
+          <view class="interest-title">选择你感兴趣的方向（可多选）</view>
+          <view class="interest-grid">
+            <view wx:for="{{interestAreas}}" 
+                  wx:key="*this" 
+                  class="interest-item {{selectedInterests[index] ? 'selected' : ''}}"
+                  bindtap="toggleInterest" 
+                  data-index="{{index}}">
+              {{item}}
+            </view>
+          </view>
+        </view>
+        <text class="tip">最多可选3个方向</text>
+      </view>
+
+      <!-- 步骤5：是否进行测试 -->
+      <view class="step-content" wx:if="{{currentStep === 4}}">
+        <view class="test-option">
+          <text>是否进行职业兴趣测试？</text>
+          <switch checked="{{!formData.skipTest}}" bindchange="toggleSkipTest" />
+        </view>
+        <text class="tip">测试有助于更准确地推荐专业</text>
+      </view>
+
+      <view class="modal-footer">
+        <button class="btn" bindtap="nextStep">
+          {{currentStep === 4 ? '完成' : '下一步'}}
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 省份选择弹窗 -->
+  <view class="province-modal" wx:if="{{showProvinceModal}}">
+    <view class="modal-mask" bindtap="closeModals"></view>
+    <view class="province-content">
+      <view class="province-grid">
+        <view 
+          class="province-item {{formData.province === item ? 'selected' : ''}}"
+          wx:for="{{provinces}}"
+          wx:key="*this"
+          bindtap="selectProvince"
+          data-province="{{item}}"
+          hover-class="hover"
+        >
+          {{item}}
+        </view>
+      </view>
+    </view>
+  </view>
 </view> 
