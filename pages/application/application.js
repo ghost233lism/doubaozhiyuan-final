@@ -3,7 +3,6 @@ Page({
     profiles: [], // 存储所有个体信息
     showAddModal: false, // 控制添加个体弹窗
     showProvinceModal: false, // 控制选择省份弹窗
-    showYearModal: false,
     currentStep: 0, // 当前步骤
     provinces: [
       '北京', '天津', '上海', '重庆', '河北', '山西', '辽宁', '吉林', '黑龙江',
@@ -11,11 +10,9 @@ Page({
       '广东', '海南', '四川', '贵州', '云南', '陕西', '甘肃', '青海', '台湾',
       '内蒙古', '广西', '西藏', '宁夏', '新疆', '香港', '澳门'
     ],
-    years: [], // 将在onLoad中生成
     formData: {
       name: '',
       province: '',
-      year: '',  // 添加年份字段
       score: '',
       rank: '',
       interests: [],
@@ -35,14 +32,6 @@ Page({
     // 从本地存储加载已有的个体信息
     const profiles = wx.getStorageSync('profiles') || [];
     this.setData({ profiles });
-    
-    // 生成年份选项（当前年份往前推5年）
-    const currentYear = new Date().getFullYear();
-    const years = [];
-    for (let i = 0; i < 5; i++) {
-      years.unshift(currentYear - i);
-    }
-    this.setData({ years });
   },
 
   // 显示添加个体弹窗
@@ -55,7 +44,6 @@ Page({
       formData: {
         name: '',
         province: '',
-        year: '',
         score: '',
         rank: '',
         interests: [],
@@ -70,7 +58,6 @@ Page({
     this.setData({
       showAddModal: false,
       showProvinceModal: false,
-      showYearModal: false,
       isEditing: false,
       editingId: null
     });
@@ -98,22 +85,6 @@ Page({
     this.setData({
       'formData.province': province,
       showProvinceModal: false
-    });
-  },
-
-  // 显示年份选择器
-  showYearPicker() {
-    this.setData({
-      showYearModal: true
-    });
-  },
-
-  // 选择年份
-  selectYear(e) {
-    const year = e.currentTarget.dataset.year;
-    this.setData({
-      'formData.year': year,
-      showYearModal: false
     });
   },
 
@@ -169,7 +140,7 @@ Page({
 
   // 验证当前步骤的数据
   validateCurrentStep() {
-    const { currentStep, formData } = this.data;
+    const { currentStep, formData, selectedInterests } = this.data;
     
     switch (currentStep) {
       case 0:
@@ -182,9 +153,9 @@ Page({
         }
         break;
       case 1:
-        if (!formData.province || !formData.year) {
+        if (!formData.province) {
           wx.showToast({
-            title: '请选择省份和年份',
+            title: '请选择省份',
             icon: 'none'
           });
           return false;
@@ -200,7 +171,7 @@ Page({
         }
         break;
       case 3:
-        const selectedCount = Object.values(this.data.selectedInterests).filter(v => v).length;
+        const selectedCount = Object.values(selectedInterests).filter(v => v).length;
         if (selectedCount === 0) {
           wx.showToast({
             title: '请至少选择一个兴趣方向',
@@ -327,7 +298,6 @@ Page({
       formData: {
         name: profile.name,
         province: profile.province,
-        year: profile.year,
         score: profile.score,
         rank: profile.rank,
         interests: profile.interests,

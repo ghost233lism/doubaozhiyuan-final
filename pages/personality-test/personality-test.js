@@ -108,7 +108,6 @@ Page({
   },
 
   completeTest() {
-    // 分析答案，得出倾向
     const result = this.analyzeAnswers();
     
     // 保存测试结果
@@ -116,23 +115,11 @@ Page({
     const applicationPage = pages[pages.length - 2];
     if (applicationPage) {
       const profiles = applicationPage.data.profiles;
-      // 找到最后添加的个体
       const lastProfile = profiles[profiles.length - 1];
-      if (lastProfile) {
-        // 创建新的profiles数组，更新最后一个个体的testResult
-        const updatedProfiles = profiles.map((profile, index) => {
-          if (index === profiles.length - 1) {
-            return { ...profile, testResult: result };
-          }
-          return profile;
-        });
-        
-        // 更新页面数据和本地存储
-        applicationPage.setData({ 
-          profiles: updatedProfiles 
-        });
-        wx.setStorageSync('profiles', updatedProfiles);
-      }
+      lastProfile.testResult = result;
+      
+      applicationPage.setData({ profiles });
+      wx.setStorageSync('profiles', profiles);
     }
 
     // 显示结果并返回
