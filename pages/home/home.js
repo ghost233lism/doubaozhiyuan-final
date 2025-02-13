@@ -277,4 +277,19 @@ OutputFormat:
       }
     });
   },
+
+  // 添加 scrollToBottom 方法
+  scrollToBottom() {
+    const query = wx.createSelectorQuery();
+    query.select('.chat-container').boundingClientRect();
+    query.selectViewport().scrollOffset();
+    query.exec((res) => {
+      if (res[0] && res[1]) {
+        wx.pageScrollTo({
+          scrollTop: res[0].height,
+          duration: 300
+        });
+      }
+    });
+  },
 }); 
