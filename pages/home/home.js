@@ -16,6 +16,9 @@ Page({
     showScrollBtn: false,  // 控制按钮显示
     scrollTop: 0,         // 记录滚动位置
     isScrolling: false,  // 添加新的状态来控制滚动动画
+    profiles: [], // 存储所有个体信息
+    currentProfile: null, // 当前选中的个体
+    showProfileSelector: false, // 控制个体选择器的显示
   },
 
   // 添加键盘事件处理
@@ -171,6 +174,14 @@ OutputFormat:
 
   // 发送消息
   async sendMessage() {
+    if (!this.data.currentProfile) {
+      wx.showToast({
+        title: '请先选择个体',
+        icon: 'none'
+      });
+      return;
+    }
+    
     if (!this.data.inputMessage.trim() || this.data.isLoading) return;
 
     const userMessage = {
@@ -290,6 +301,78 @@ OutputFormat:
           duration: 300
         });
       }
+    });
+  },
+
+  // 修改 onLoad 方法，只保留欢迎消息的初始化
+  onLoad() {
+    // 只初始化欢迎消息，个体信息的加载移到 onShow 中
+    const welcomeMsg = {
+      type: 'ai',
+      content: '你好！我是AI志愿填报助手，请问有什么可以帮你？'
+    };
+
+    this.setData({
+      messageList: [welcomeMsg]
+    });
+  },
+
+  // 添加 onShow 生命周期函数
+  onShow() {
+    // 获取最新的个体信息
+    const profiles = wx.getStorageSync('profiles') || [];
+    
+    // 获取当前选中的个体ID
+    const currentProfileId = wx.getStorageSync('currentProfileId');
+    
+    // 更新个体列表
+    this.setData({ profiles });
+    
+    // 如果有选中的个体ID，查找对应的个体信息
+    if (currentProfileId) {
+      const currentProfile = profiles.find(p => p.id === currentProfileId);
+      // 如果找到了对应的个体，更新当前个体
+      // 如果没找到（可能已被删除），清除当前个体和存储的ID
+      if (currentProfile) {
+        this.setData({ currentProfile });
+      } else {
+        this.setData({ currentProfile: null });
+        wx.removeStorageSync('currentProfileId');
+      }
+    } else {
+      // 如果没有选中的个体ID，确保当前个体为空
+      this.setData({ currentProfile: null });
+    }
+  },
+
+  // 显示个体选择器
+  showProfileSelector() {
+    this.setData({
+      showProfileSelector: true
+    });
+  },
+
+  // 修改选择个体的方法，添加消息提示
+  selectProfile(e) {
+    const profile = e.currentTarget.dataset.profile;
+    this.setData({
+      currentProfile: profile,
+      showProfileSelector: false
+    });
+    wx.setStorageSync('currentProfileId', profile.id);
+    
+    // 添加选择成功的提示
+    wx.showToast({
+      title: '已选择: ' + profile.name,
+      icon: 'success',
+      duration: 1500
+    });
+  },
+
+  // 关闭个体选择器
+  closeProfileSelector() {
+    this.setData({
+      showProfileSelector: false
     });
   },
 }); 

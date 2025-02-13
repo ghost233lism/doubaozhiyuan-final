@@ -1,4 +1,36 @@
 <view class="chat-container">
+  <!-- 添加个体选择器按钮 -->
+  <view class="profile-selector-btn" bindtap="showProfileSelector">
+    <view class="profile-info">
+      <image class="profile-icon" src="/images/user.png" />
+      <text>{{currentProfile ? currentProfile.name : '请选择个体'}}</text>
+      <image class="arrow-icon" src="/images/arrow-down.png" />
+    </view>
+  </view>
+
+  <!-- 个体选择器弹窗 -->
+  <view class="profile-selector-modal" wx:if="{{showProfileSelector}}">
+    <view class="modal-mask" bindtap="closeProfileSelector"></view>
+    <view class="selector-content">
+      <view class="selector-header">
+        <text>选择个体</text>
+      </view>
+      <view class="profiles-list">
+        <view class="profile-item {{currentProfile.id === item.id ? 'selected' : ''}}"
+              wx:for="{{profiles}}" 
+              wx:key="id"
+              bindtap="selectProfile"
+              data-profile="{{item}}">
+          <text class="profile-name">{{item.name}}</text>
+          <text class="profile-detail">{{item.year}}年 | {{item.province}} | {{item.score}}分</text>
+        </view>
+      </view>
+      <view class="empty-tip" wx:if="{{profiles.length === 0}}">
+        <text>暂无个体信息，请先在志愿填报页面添加</text>
+      </view>
+    </view>
+  </view>
+
   <!-- 新建对话按钮 -->
   <view class="new-chat-btn" bindtap="createNewChat">
     <image class="plus-icon" src="/images/plus.png" />
