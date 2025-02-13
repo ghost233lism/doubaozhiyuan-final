@@ -4,7 +4,7 @@
     <view class="profile-card" wx:for="{{profiles}}" wx:key="id">
       <view class="profile-info">
         <text class="profile-name">{{item.name}}</text>
-        <text class="profile-detail">{{item.year}}年 | {{item.province}} | {{item.score}}分 | 排名{{item.rank}}</text>
+        <text class="profile-detail">{{item.province}} | {{item.score}}分 | 排名{{item.rank}}</text>
         
         <!-- 用户选择的兴趣 -->
         <view class="profile-interests">
@@ -52,16 +52,10 @@
         />
       </view>
 
-      <!-- 步骤2：选择省份和年份 -->
+      <!-- 步骤2：选择省份 -->
       <view class="step-content" wx:if="{{currentStep === 1}}">
         <view class="province-selector" bindtap="showProvinceSelector">
           <text>{{formData.province || '请选择省份'}}</text>
-          <image class="arrow-icon" src="/images/arrow-down.png" />
-        </view>
-        
-        <!-- 添加年份选择器 -->
-        <view class="year-selector" bindtap="showYearPicker">
-          <text>{{formData.year || '请选择高考年份'}}</text>
           <image class="arrow-icon" src="/images/arrow-down.png" />
         </view>
       </view>
@@ -139,25 +133,6 @@
           hover-class="hover"
         >
           {{item}}
-        </view>
-      </view>
-    </view>
-  </view>
-
-  <!-- 添加年份选择弹窗 -->
-  <view class="year-modal" wx:if="{{showYearModal}}">
-    <view class="modal-mask" bindtap="closeModals"></view>
-    <view class="year-content">
-      <view class="year-grid">
-        <view 
-          class="year-item {{formData.year === item ? 'selected' : ''}}"
-          wx:for="{{years}}"
-          wx:key="*this"
-          bindtap="selectYear"
-          data-year="{{item}}"
-          hover-class="hover"
-        >
-          {{item}}年
         </view>
       </view>
     </view>
