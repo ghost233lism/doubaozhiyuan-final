@@ -68,22 +68,27 @@
 
       <!-- 步骤3：输入分数和排名 -->
       <view class="step-content" wx:if="{{currentStep === 2}}">
-        <input 
-          class="input" 
-          type="number" 
-          placeholder="请输入高考分数" 
-          value="{{formData.score}}"
-          bindinput="handleInput"
-          data-field="score"
-        />
-        <input 
-          class="input" 
-          type="number" 
-          placeholder="请输入省排名" 
-          value="{{formData.rank}}"
-          bindinput="handleInput"
-          data-field="rank"
-        />
+        <view class="input-group">
+          <input type="number" placeholder="高考分数" value="{{formData.score}}" bindinput="handleInput" data-field="score" />
+        </view>
+        <view class="input-group">
+          <input type="number" placeholder="省排名" value="{{formData.rank}}" bindinput="handleInput" data-field="rank" />
+        </view>
+        
+        <view class="subject-selection">
+          <view class="section-title">选择三门选考科目</view>
+          <view class="subject-grid">
+            <view 
+              wx:for="{{subjectOptions}}" 
+              wx:key="*this"
+              class="subject-item {{selectedSubjects[item] ? 'selected' : ''}}"
+              bindtap="toggleSubject"
+              data-subject="{{item}}">
+              {{item}}
+            </view>
+          </view>
+          
+        </view>
       </view>
 
       <!-- 步骤4：选择兴趣方向 -->

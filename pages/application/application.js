@@ -19,7 +19,8 @@ Page({
       score: '',
       rank: '',
       interests: [],
-      skipTest: false
+      skipTest: false,
+      subjects: [] // 添加选科字段
     },
     interestDirections: [
       '理工类', '文史类', '经管类', '医学类', '艺术类', '教育类', 
@@ -29,6 +30,8 @@ Page({
     selectedInterests: {},  // 用于存储选中状态
     isEditing: false,  // 添加标识是否处于编辑状态
     editingId: null,   // 添加正在编辑的记录ID
+    subjectOptions: ['物理', '化学', '生物', '政治', '历史', '地理'], // 添加选科选项
+    selectedSubjects: {}, // 用于存储选科的选中状态
   },
 
   onLoad() {
@@ -59,9 +62,11 @@ Page({
         score: '',
         rank: '',
         interests: [],
-        skipTest: false
+        skipTest: false,
+        subjects: [] // 添加选科字段
       },
-      selectedInterests: {}
+      selectedInterests: {},
+      selectedSubjects: {} // 清空选科状态
     });
   },
 
@@ -198,6 +203,13 @@ Page({
           });
           return false;
         }
+        if (!formData.subjects || formData.subjects.length !== 3) {
+          wx.showToast({
+            title: '请选择3个选考科目',
+            icon: 'none'
+          });
+          return false;
+        }
         break;
       case 3:
         const selectedCount = Object.values(this.data.selectedInterests).filter(v => v).length;
@@ -319,6 +331,12 @@ Page({
       selectedInterests[index] = profile.interests.includes(interest);
     });
 
+    // 将选中的科目转换为selectedSubjects对象
+    const selectedSubjects = {};
+    this.data.subjectOptions.forEach(subject => {
+      selectedSubjects[subject] = profile.subjects ? profile.subjects.includes(subject) : false;
+    });
+
     this.setData({
       showAddModal: true,
       currentStep: 0,
@@ -331,9 +349,41 @@ Page({
         score: profile.score,
         rank: profile.rank,
         interests: profile.interests,
-        skipTest: profile.skipTest
+        skipTest: profile.skipTest,
+        subjects: profile.subjects || [] // 添加选科数据
       },
-      selectedInterests
+      selectedInterests,
+      selectedSubjects
     });
-  }
+  },
+
+  // 添加选科处理函数
+  toggleSubject(e) {
+    const subject = e.currentTarget.dataset.subject;
+    const selectedSubjects = this.data.selectedSubjects;
+    
+    // 如果要取消选中，直接处理
+    if (selectedSubjects[subject]) {
+      selectedSubjects[subject] = false;
+    } else {
+      // 检查是否已经选择了3个科目
+      const currentSelectedCount = Object.values(selectedSubjects).filter(v => v).length;
+      if (currentSelectedCount >= 3) {
+        wx.showToast({
+          title: '最多选择3个科目',
+          icon: 'none'
+        });
+        return;
+      }
+      selectedSubjects[subject] = true;
+    }
+    
+    // 更新formData中的subjects数组
+    const selectedItems = this.data.subjectOptions.filter(subject => selectedSubjects[subject]);
+    
+    this.setData({
+      selectedSubjects,
+      'formData.subjects': selectedItems
+    });
+  },
 }); 
