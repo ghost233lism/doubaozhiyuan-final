@@ -77,7 +77,7 @@
                     bindtap="toggleFavorite" 
                     data-message="{{item}}"
                     data-index="{{index}}">
-              <image class="favorite-icon" src="{{item.isFavorite ? '/images/star-filled.png' : '/images/star.png'}}" />
+              <image class="favorite-icon" src="{{item.isFavorite ? '/images/star.png' : '/images/star-unfilled.png'}}" />
               <text>{{item.isFavorite ? '已收藏' : '收藏'}}</text>
             </button>
           </view>

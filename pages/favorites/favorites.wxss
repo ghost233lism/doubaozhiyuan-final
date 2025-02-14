@@ -8,44 +8,51 @@
   padding-bottom: 40rpx;
 }
 
+.favorites-container {
+  padding: 16rpx;
+}
+
 .favorite-item {
   background: #fff;
-  border-radius: 12rpx;
+  border-radius: 8rpx;
   padding: 20rpx;
-  margin-bottom: 20rpx;
+  margin-bottom: 16rpx;
+  box-shadow: 0 2rpx 4rpx rgba(0,0,0,0.1);
 }
 
-.favorite-content {
+.content {
   font-size: 28rpx;
   line-height: 1.6;
-  color: #333;
-  margin-bottom: 20rpx;
+  max-height: 200rpx;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
 }
 
-.favorite-actions {
-  display: flex;
-  gap: 20rpx;
+.content.expanded {
+  max-height: none;
+}
+
+.footer {
   margin-top: 16rpx;
-  padding-top: 16rpx;
-  border-top: 1px solid #eee;
-}
-
-.action-btn {
-  background: transparent;
-  border: none;
-  padding: 0;
-  height: 48rpx;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 4rpx;
-  color: #666;
-  font-size: 24rpx;
 }
 
-.action-btn image {
-  width: 32rpx;
-  height: 32rpx;
-  opacity: 0.8;
+.actions {
+  display: flex;
+  gap: 40rpx;
+}
+
+.expand-btn, .delete-btn {
+  color: #007AFF;
+  font-size: 28rpx;
+  line-height: 32rpx;
+  display: inline-block;
+}
+
+.delete-btn {
+  color: #FF3B30;
 }
 
 .favorite-time {
@@ -59,4 +66,9 @@
   color: #999;
   padding: 100rpx 0;
   font-size: 28rpx;
+}
+
+.timestamp {
+  font-size: 24rpx;
+  color: #666;
 } 

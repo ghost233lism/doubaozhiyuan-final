@@ -1,30 +1,16 @@
-<view class="container">
-  <view class="favorites-list">
-    <block wx:if="{{favorites.length > 0}}">
-      <view class="favorite-item" wx:for="{{favorites}}" wx:key="timestamp">
-        <view class="favorite-content">
-          <block wx:if="{{item.parsedContent}}">
-            <towxml nodes="{{item.parsedContent}}" />
-          </block>
-          <block wx:else>
-            <text>{{item.content}}</text>
-          </block>
+<view class="favorites-container">
+  <view class="favorite-item" wx:for="{{favorites}}" wx:key="timestamp">
+    <view class="content {{item.expanded ? 'expanded' : ''}}">
+      <text>{{item.expanded ? item.content : item.shortContent}}</text>
+    </view>
+    <view class="footer">
+      <text class="timestamp">{{item.timestamp}}</text>
+      <view class="actions">
+        <view class="expand-btn" bindtap="toggleExpand" data-index="{{index}}">
+          {{item.expanded ? '收起' : '查看详情'}}
         </view>
-        <view class="favorite-actions">
-          <button class="action-btn copy-btn" bindtap="copyMessage" data-text="{{item.content}}">
-            <image src="/images/copy.png" />
-            <text>复制</text>
-          </button>
-          <button class="action-btn delete-btn" bindtap="removeFavorite" data-index="{{index}}">
-            <image src="/images/delete.png" />
-            <text>删除</text>
-          </button>
-        </view>
-        <view class="favorite-time">{{item.timestamp}}</view>
+        <view class="delete-btn" bindtap="deleteFavorite" data-index="{{index}}">删除</view>
       </view>
-    </block>
-    <view wx:else class="empty-tip">
-      <text>暂无收藏内容</text>
     </view>
   </view>
 </view> 

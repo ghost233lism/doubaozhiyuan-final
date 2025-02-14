@@ -64,7 +64,7 @@
   border-radius: 10rpx;
   margin: 0 20rpx;
   word-break: break-all;
-  white-space: pre-wrap;
+  /* white-space: pre-wrap; */
   position: relative;
   padding-bottom: 50rpx;
 }
