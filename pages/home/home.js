@@ -3,7 +3,8 @@ Page({
     messageList: [
       {
         type: 'ai',
-        content: '你好！我是AI助手，请问有什么可以帮助你的吗？'
+        content: '你好！我是AI助手，请问有什么可以帮助你的吗？',
+        parsedContent: null
       }
     ],
     inputMessage: '',
@@ -67,7 +68,9 @@ ${this.data.currentProfile ? `
 Profile: 
 你是最优解团队中一位在高考志愿填报领域有着丰富经验和深厚专业知识的专家，你清楚各个省份的高考志愿可以填报的数量有多少，你清楚各个省各个院校历年的录取分数线和对应排名，熟悉高考政策、高校招生规则以及各类专业的特点和就业前景，能够根据考生的具体情况提供个性化的咨询和建议。你明白对于高考志愿填报来说，排名比分数更有参考价值，你不会给考生不切合分数实际的院校和专业推荐。
 你倾向于给出明确的方案和建议，尤其是在进行比较的时候，给出明确的判断，而不是和稀泥。
+
 你一定要弄清楚考生学文还是学理（首选物理还是首选历史）
+你生成的回答内容可以正确的渲染成markdown格式，不要生成过多空行，不同段之间不需要用空行隔开
 
 针对家长提出的关于招生政策、录取规则等疑问，要迅速且准确地解答。比如：
 - 为家长清楚地说明各个省份的高考志愿可以填报的数量有多少，不能含糊其辞，确保真实可靠而且数据是最新的
@@ -90,6 +93,8 @@ Profile:
 
 你的回答语气应该是专业、严谨的，不要使用"呀"，"呢"等语气词。
 
+如果需要对不同对象进行比较的时候，可以添加表格来更加直观地展示。
+
 面对比较笼统的问题，不要着急给出答案，向用户提出一些问题，获取到更多信息后，再给出答案。
 
 Skills: 
@@ -110,7 +115,7 @@ Constrains:
 - 再给出建议时，既要给出院校推荐，也要给出专业推荐，时刻记住以专业+院校的视角来看待高考志愿
 
 OutputFormat: 
-以对话形式进行交流，提供详细的志愿填报建议和分析，包括文字说明以及相关资源链接等。`
+以对话形式进行交流，提供详细的志愿填报建议和分析，包括文字说明以及相关资源链接等，你要确保生成的链接是正确的且中国大陆的用户能够正常访问。`
         }
       ];
 
@@ -168,6 +173,31 @@ OutputFormat:
     });
   },
 
+  // 添加解析markdown的方法
+  parseMarkdown(content) {
+    const towxml = require('../../towxml/index');
+    return towxml(content, 'markdown', {
+      theme: 'light',
+      events: {
+        tap: (e) => {
+          // 处理链接点击
+          if (e.currentTarget.dataset.data && e.currentTarget.dataset.data.attr && e.currentTarget.dataset.data.attr.href) {
+            const url = e.currentTarget.dataset.data.attr.href;
+            wx.setClipboardData({
+              data: url,
+              success: () => {
+                wx.showToast({
+                  title: '链接已复制',
+                  icon: 'success'
+                });
+              }
+            });
+          }
+        }
+      }
+    });
+  },
+
   // 发送消息
   async sendMessage() {
     if (!this.data.currentProfile) {
@@ -201,7 +231,8 @@ OutputFormat:
       
       const aiMessage = {
         type: 'ai',
-        content: aiResponse
+        content: aiResponse,
+        parsedContent: this.parseMarkdown(aiResponse)
       };
       
       const updatedMessageList = [...newMessageList, aiMessage];
@@ -274,7 +305,8 @@ OutputFormat:
           // 添加欢迎消息
           const welcomeMsg = {
             type: 'ai',
-            content: '你好！我是AI志愿填报助手，请问有什么可以帮你？'
+            content: '你好！我是AI志愿填报助手，请问有什么可以帮你？',
+            parsedContent: null
           };
 
           this.setData({
@@ -305,7 +337,8 @@ OutputFormat:
     // 只初始化欢迎消息，个体信息的加载移到 onShow 中
     const welcomeMsg = {
       type: 'ai',
-      content: '你好！我是AI志愿填报助手，请问有什么可以帮你？'
+      content: '你好！我是AI志愿填报助手，请问有什么可以帮你？',
+      parsedContent: null
     };
 
     this.setData({
@@ -374,7 +407,8 @@ OutputFormat:
 科目选择：${profile.subjects}
 地区：${profile.province}
 
-我会基于这些信息为该考生提供更精准的志愿填报建议。请问您想了解哪些方面的信息？`
+我会基于这些信息为该考生提供更精准的志愿填报建议。请问您想了解哪些方面的信息？`,
+      parsedContent: null
     };
 
     this.setData({

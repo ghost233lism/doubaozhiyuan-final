@@ -52,5 +52,8 @@
         "selectedIconPath": "images/me-active.png"
       }
     ]
+  },
+  "usingComponents": {
+    "towxml": "/towxml/towxml"
   }
 }

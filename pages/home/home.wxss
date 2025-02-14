@@ -309,3 +309,82 @@
     color: #999;
     padding: 40rpx 0;
 }
+
+/* 修改towxml的样式 */
+.message-content .h2w {
+  color: #000000 !important;
+  font-size: 28rpx !important;  /* 从26rpx改为28rpx */
+  line-height: 1.6 !important;
+}
+
+/* 调整段落样式 */
+.message-content .h2w__p {
+  margin: 4px 0 !important;
+  line-height: 1.6 !important;
+  color: #000000 !important;
+  font-size: 28rpx !important;  /* 从26rpx改为28rpx */
+}
+
+/* 调整列表间距 */
+.message-content .h2w__ul,
+.message-content .h2w__ol {
+  margin: 4px 0 !important;
+  padding-left: 1em !important;
+}
+
+/* 调整列表项间距 */
+.message-content .h2w__li {
+  margin: 2px 0 !important;
+  color: #000000 !important;
+  font-size: 28rpx !important;  /* 从26rpx改为28rpx */
+}
+
+/* 调整标题样式 */
+.message-content .h2w__h1,
+.message-content .h2w__h2,
+.message-content .h2w__h3,
+.message-content .h2w__h4,
+.message-content .h2w__h5,
+.message-content .h2w__h6 {
+  margin: 8px 0 4px 0 !important;
+  color: #000000 !important;
+  font-weight: bold !important;
+  font-size: 28rpx !important;  /* 从26rpx改为28rpx */
+}
+
+/* 调整引用块样式 */
+.message-content .h2w__blockquote {
+  margin: 4px 0 !important;
+  padding: 4px 8px !important;
+  color: #000000 !important;
+  font-size: 28rpx !important;  /* 从26rpx改为28rpx */
+  border-left: 3px solid #1296db !important;
+  background-color: #f5f5f5 !important;
+}
+
+/* 调整代码块样式 */
+.message-content .h2w__pre {
+  margin: 4px 0 !important;
+  padding: 8px !important;
+  background-color: #f5f5f5 !important;
+}
+
+/* 调整行内代码样式 */
+.message-content .h2w__code {
+  background-color: #f5f5f5 !important;
+  padding: 2px 4px !important;
+  border-radius: 3px !important;
+  color: #000000 !important;
+  font-size: 28rpx !important;  /* 从26rpx改为28rpx */
+}
+
+/* 调整链接样式 */
+.message-content .h2w__a {
+  color: #1296db !important;
+  text-decoration: none !important;
+}
+
+.ai-message {
+  font-size: 28rpx;  /* 从26rpx改为28rpx */
+  line-height: 1.6;
+}

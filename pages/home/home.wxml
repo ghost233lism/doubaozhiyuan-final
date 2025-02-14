@@ -54,7 +54,12 @@
             <image class="avatar-img" src="/images/ai-avatar.png" />
           </view>
           <view class="message-content">
-            <text space="emsp" decode="{{true}}">{{item.content}}</text>
+            <block wx:if="{{item.parsedContent}}">
+              <towxml nodes="{{item.parsedContent}}" />
+            </block>
+            <block wx:else>
+              <text space="emsp" decode="{{true}}">{{item.content}}</text>
+            </block>
           </view>
         </view>
         <!-- 用户消息 -->
