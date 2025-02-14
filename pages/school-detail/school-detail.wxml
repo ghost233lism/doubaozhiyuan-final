@@ -4,80 +4,211 @@
   </view>
   
   <view wx:else class="school-detail">
-    <!-- 学校基本信息 -->
-    <view class="header">
-      <image class="school-logo" 
-             src="{{school.logo || '/images/default-university-logo.png'}}" 
-             mode="aspectFit"/>
-      <view class="school-title">
-        <text class="school-name">{{school.name}}</text>
-        <view class="school-tags">
-          <text class="tag">{{school.type}}</text>
-          <text class="tag">{{school.location}}</text>
+    <!-- 顶部切换栏 -->
+    <view class="tab-bar">
+      <view class="tab-item {{activeTab === 'school' ? 'active' : ''}}" 
+            bindtap="switchTab" 
+            data-tab="school">
+        学校详情
+      </view>
+      <view class="tab-item {{activeTab === 'major' ? 'active' : ''}}" 
+            bindtap="switchTab" 
+            data-tab="major">
+        专业详情
+      </view>
+    </view>
+
+    <!-- 学校详情内容 -->
+    <view class="content-area" hidden="{{activeTab !== 'school'}}">
+      <!-- 学校基本信息 -->
+      <view class="header">
+        <image class="school-logo" 
+               src="{{school.logo || '/images/default-university-logo.png'}}" 
+               mode="aspectFit"/>
+        <view class="school-title">
+          <text class="school-name">{{school.name}}</text>
+          <view class="school-tags">
+            <text class="tag">{{school.type}}</text>
+            <text class="tag">{{school.location}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 学校等级 -->
+      <view class="section" wx:if="{{school.level}}">
+        <view class="section-title">学校等级</view>
+        <view class="level-info">{{school.level}}</view>
+      </view>
+
+      <!-- 学校简介 -->
+      <view class="section" wx:if="{{school.description}}">
+        <view class="section-title">学校简介</view>
+        <view class="description">{{school.description}}</view>
+      </view>
+
+      <!-- 基本信息 -->
+      <view class="section">
+        <view class="section-title">基本信息</view>
+        <view class="info-list">
+          <view class="info-item" wx:if="{{school.established}}">
+            <text class="label">创办时间：</text>
+            <text class="value">{{school.established}}</text>
+          </view>
+          <view class="info-item" wx:if="{{school.students}}">
+            <text class="label">在校生规模：</text>
+            <text class="value">{{school.students}}</text>
+          </view>
+          <view class="info-item" wx:if="{{school.academicians}}">
+            <text class="label">院士人数：</text>
+            <text class="value">{{school.academicians}}</text>
+          </view>
+          <view class="info-item" wx:if="{{school.keyLabs}}">
+            <text class="label">重点实验室：</text>
+            <text class="value">{{school.keyLabs}}</text>
+          </view>
+          <view class="info-item" wx:if="{{school.website}}">
+            <text class="label">官方网站：</text>
+            <text class="value link" bindtap="copyWebsite" data-url="{{school.website}}">{{school.website}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 特色优势 -->
+      <view class="section" wx:if="{{school.features.length > 0}}">
+        <view class="section-title">特色优势</view>
+        <view class="features-list">
+          <view class="feature-item" wx:for="{{school.features}}" wx:key="*this">
+            <text class="dot">•</text>
+            <text>{{item}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 优势专业 -->
+      <view class="section" wx:if="{{school.majors.length > 0}}">
+        <view class="section-title">优势专业</view>
+        <view class="majors-list">
+          <view class="major-item" 
+                wx:for="{{school.majors}}" 
+                wx:key="*this"
+                bindtap="navigateToMajor"
+                data-major="{{item}}">
+            {{item}}
+          </view>
         </view>
       </view>
     </view>
 
-    <!-- 学校等级 -->
-    <view class="section" wx:if="{{school.level}}">
-      <view class="section-title">学校等级</view>
-      <view class="level-info">{{school.level}}</view>
-    </view>
+    <!-- 专业详情内容 -->
+    <view class="content-area" hidden="{{activeTab !== 'major'}}">
+      <view class="major-container">
+        <!-- 左侧专业大类列表 -->
+        <view class="category-list">
+          <view class="category-item {{item.isExpanded ? 'active' : ''}}"
+                wx:for="{{majorCategories}}"
+                wx:key="name"
+                bindtap="onCategoryTap"
+                data-index="{{index}}">
+            {{item.name}}
+          </view>
+        </view>
 
-    <!-- 学校简介 -->
-    <view class="section" wx:if="{{school.description}}">
-      <view class="section-title">学校简介</view>
-      <view class="description">{{school.description}}</view>
-    </view>
+        <!-- 右侧内容区域 -->
+        <view class="major-content">
+          <block wx:if="{{!selectedMajor}}">
+            <!-- 显示二级分类列表及其专业 -->
+            <view wx:for="{{majorCategories}}" 
+                  wx:key="name"
+                  wx:for-item="category"
+                  wx:for-index="categoryIndex">
+              
+              <!-- 只显示展开的大类的内容 -->
+              <block wx:if="{{category.isExpanded}}">
+                <view wx:for="{{category.subcategories}}" 
+                      wx:key="name"
+                      wx:for-item="subcategory"
+                      wx:for-index="subIndex"
+                      class="subcategory-group">
+                  <view class="subcategory-item {{subcategory.isExpanded ? 'active' : ''}}"
+                        bindtap="onSubcategoryTap"
+                        data-category-index="{{categoryIndex}}"
+                        data-sub-index="{{subIndex}}">
+                    {{subcategory.name}}
+                  </view>
+                  
+                  <!-- 显示展开的二级分类的专业列表 -->
+                  <view class="major-list" 
+                        wx:if="{{subcategory.isExpanded}}">
+                    <view class="major-item"
+                          wx:for="{{subcategory.majors}}"
+                          wx:for-item="major"
+                          wx:key="name"
+                          bindtap="onMajorTap"
+                          data-major="{{major}}">
+                      {{major.name}}
+                    </view>
+                  </view>
+                </view>
+              </block>
+            </view>
+          </block>
 
-    <!-- 基本信息 -->
-    <view class="section">
-      <view class="section-title">基本信息</view>
-      <view class="info-list">
-        <view class="info-item" wx:if="{{school.established}}">
-          <text class="label">创办时间：</text>
-          <text class="value">{{school.established}}</text>
-        </view>
-        <view class="info-item" wx:if="{{school.students}}">
-          <text class="label">在校生规模：</text>
-          <text class="value">{{school.students}}</text>
-        </view>
-        <view class="info-item" wx:if="{{school.academicians}}">
-          <text class="label">院士人数：</text>
-          <text class="value">{{school.academicians}}</text>
-        </view>
-        <view class="info-item" wx:if="{{school.keyLabs}}">
-          <text class="label">重点实验室：</text>
-          <text class="value">{{school.keyLabs}}</text>
-        </view>
-        <view class="info-item" wx:if="{{school.website}}">
-          <text class="label">官方网站：</text>
-          <text class="value link" bindtap="copyWebsite" data-url="{{school.website}}">{{school.website}}</text>
-        </view>
-      </view>
-    </view>
+          <!-- 专业详细信息 -->
+          <view class="major-detail" wx:else>
+            <view class="major-header">
+              <text class="back-button" bindtap="onBackToList">返回列表</text>
+              <view class="major-title">
+                <text class="major-name">{{selectedMajor.name}}</text>
+                <text class="major-code">专业代码：{{selectedMajor.code}}</text>
+              </view>
+            </view>
+            
+            <view class="major-content-detail">
+              <!-- 专业介绍 -->
+              <view class="major-section">
+                <view class="section-title">
+                  <text class="icon">📚</text>
+                  <text>专业介绍</text>
+                </view>
+                <text class="section-content">{{selectedMajor.introduction}}</text>
+              </view>
+              
+              <!-- 主要特色 -->
+              <view class="major-section">
+                <view class="section-title">
+                  <text class="icon">🌟</text>
+                  <text>主要特色</text>
+                </view>
+                <view class="features-grid">
+                  <view class="feature-tag" wx:for="{{selectedMajor.features}}" wx:key="*this">
+                    {{item}}
+                  </view>
+                </view>
+              </view>
 
-    <!-- 特色优势 -->
-    <view class="section" wx:if="{{school.features.length > 0}}">
-      <view class="section-title">特色优势</view>
-      <view class="features-list">
-        <view class="feature-item" wx:for="{{school.features}}" wx:key="*this">
-          <text class="dot">•</text>
-          <text>{{item}}</text>
-        </view>
-      </view>
-    </view>
-
-    <!-- 优势专业 -->
-    <view class="section" wx:if="{{school.majors.length > 0}}">
-      <view class="section-title">优势专业</view>
-      <view class="majors-list">
-        <view class="major-item" 
-              wx:for="{{school.majors}}" 
-              wx:key="*this"
-              bindtap="navigateToMajor"
-              data-major="{{item}}">
-          {{item}}
+              <!-- 主要课程 -->
+              <view class="major-section">
+                <view class="section-title">
+                  <text class="icon">📖</text>
+                  <text>主要课程</text>
+                </view>
+                <view class="course-grid">
+                  <view class="course-item" wx:for="{{selectedMajor.courses}}" wx:key="*this">
+                    {{item}}
+                  </view>
+                </view>
+              </view>
+              
+              <!-- 就业方向 -->
+              <view class="major-section">
+                <view class="section-title">
+                  <text class="icon">🎯</text>
+                  <text>就业方向</text>
+                </view>
+                <text class="section-content">{{selectedMajor.career}}</text>
+              </view>
+            </view>
+          </view>
         </view>
       </view>
     </view>
