@@ -115,10 +115,11 @@
 }
 
 .major-item {
-  padding: 20rpx;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #eee;
+  border-top: 1rpx solid #eee;
   font-size: 28rpx;
   color: #666;
-  border-bottom: 1rpx solid #eee;
 }
 
 .major-item:last-child {
@@ -226,7 +227,7 @@
 .major-content {
   flex: 1;
   overflow-y: auto;
-  padding: 0;
+  padding: 25rpx 0 0 0;
   width: 0;
 }
 
@@ -375,4 +376,12 @@
   flex: 1;
   min-width: 200rpx;
   text-align: center;
+}
+
+.tab-container {
+  display: flex;
+  justify-content: space-around;
+  background-color: #fff;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #eee;
 } 
