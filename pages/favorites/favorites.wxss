@@ -1,0 +1,74 @@
+.container {
+  padding: 20rpx;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.favorites-list {
+  padding-bottom: 40rpx;
+}
+
+.favorites-container {
+  padding: 16rpx;
+}
+
+.favorite-item {
+  background: #fff;
+  border-radius: 8rpx;
+  padding: 20rpx;
+  margin-bottom: 16rpx;
+  box-shadow: 0 2rpx 4rpx rgba(0,0,0,0.1);
+}
+
+.content {
+  font-size: 28rpx;
+  line-height: 1.6;
+  max-height: 200rpx;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.content.expanded {
+  max-height: none;
+}
+
+.footer {
+  margin-top: 16rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.actions {
+  display: flex;
+  gap: 40rpx;
+}
+
+.expand-btn, .delete-btn {
+  color: #007AFF;
+  font-size: 28rpx;
+  line-height: 32rpx;
+  display: inline-block;
+}
+
+.delete-btn {
+  color: #FF3B30;
+}
+
+.favorite-time {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 12rpx;
+}
+
+.empty-tip {
+  text-align: center;
+  color: #999;
+  padding: 100rpx 0;
+  font-size: 28rpx;
+}
+
+.timestamp {
+  font-size: 24rpx;
+  color: #666;
+} 

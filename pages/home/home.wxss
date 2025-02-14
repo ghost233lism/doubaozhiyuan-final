@@ -27,6 +27,7 @@
   display: flex;
   margin-bottom: 30rpx;
   align-items: flex-start;
+  position: relative;
 }
 
 .message-item.ai {
@@ -63,7 +64,9 @@
   border-radius: 10rpx;
   margin: 0 20rpx;
   word-break: break-all;
-  white-space: pre-wrap;
+  /* white-space: pre-wrap; */
+  position: relative;
+  padding-bottom: 50rpx;
 }
 
 .message-content text {
@@ -79,6 +82,22 @@
 .message-item.user .message-content {
   background-color: #07c160;
   color: white;
+  padding: 20rpx 25rpx;
+  font-size: 28rpx;
+  line-height: 1.4;
+  max-width: 60%;
+  margin: 0 12rpx;
+  border-radius: 8rpx;
+  display: inline-block;
+  white-space: normal;
+  word-wrap: break-word;
+  min-height: unset;
+  min-width: unset;
+}
+
+.message-item.user .message-content text {
+  display: inline;
+  width: auto;
 }
 
 .input-area {
@@ -308,4 +327,184 @@
     text-align: center;
     color: #999;
     padding: 40rpx 0;
+}
+
+/* 修改towxml的样式 */
+.message-content .h2w {
+  color: #000000 !important;
+  font-size: 28rpx !important;  /* 从26rpx改为28rpx */
+  line-height: 1.6 !important;
+}
+
+/* 调整段落样式 */
+.message-content .h2w__p {
+  margin: 4px 0 !important;
+  line-height: 1.6 !important;
+  color: #000000 !important;
+  font-size: 28rpx !important;  /* 从26rpx改为28rpx */
+}
+
+/* 调整列表间距 */
+.message-content .h2w__ul,
+.message-content .h2w__ol {
+  margin: 4px 0 !important;
+  padding-left: 1em !important;
+}
+
+/* 调整列表项间距 */
+.message-content .h2w__li {
+  margin: 2px 0 !important;
+  color: #000000 !important;
+  font-size: 28rpx !important;  /* 从26rpx改为28rpx */
+}
+
+/* 调整标题样式 */
+.message-content .h2w__h1,
+.message-content .h2w__h2,
+.message-content .h2w__h3,
+.message-content .h2w__h4,
+.message-content .h2w__h5,
+.message-content .h2w__h6 {
+  margin: 8px 0 4px 0 !important;
+  color: #000000 !important;
+  font-weight: bold !important;
+  font-size: 28rpx !important;  /* 从26rpx改为28rpx */
+}
+
+/* 调整引用块样式 */
+.message-content .h2w__blockquote {
+  margin: 4px 0 !important;
+  padding: 4px 8px !important;
+  color: #000000 !important;
+  font-size: 28rpx !important;  /* 从26rpx改为28rpx */
+  border-left: 3px solid #1296db !important;
+  background-color: #f5f5f5 !important;
+}
+
+/* 调整代码块样式 */
+.message-content .h2w__pre {
+  margin: 4px 0 !important;
+  padding: 8px !important;
+  background-color: #f5f5f5 !important;
+}
+
+/* 调整行内代码样式 */
+.message-content .h2w__code {
+  background-color: #f5f5f5 !important;
+  padding: 2px 4px !important;
+  border-radius: 3px !important;
+  color: #000000 !important;
+  font-size: 28rpx !important;  /* 从26rpx改为28rpx */
+}
+
+/* 调整链接样式 */
+.message-content .h2w__a {
+  color: #1296db !important;
+  text-decoration: none !important;
+}
+
+.ai-message {
+  font-size: 28rpx;  /* 从26rpx改为28rpx */
+  line-height: 1.6;
+}
+
+.copy-button {
+  position: absolute;
+  bottom: 10rpx;
+  left: 10rpx;
+  background: transparent;
+  border: none;
+  padding: 0;
+  height: 28rpx !important;  /* 调整高度 */
+  width: 100rpx !important;  /* 减小宽度 */
+  min-width: unset !important;
+  display: flex;
+  align-items: center;
+  gap: 2rpx;  /* 添加小间距 */
+  color: #999;
+  font-size: 26rpx;  /* 稍微减小文字大小 */
+  z-index: 1;
+  line-height: 1;  /* 确保文字垂直居中 */
+}
+
+.copy-icon {
+  width: 28rpx;  /* 调整图标大小 */
+  height: 28rpx;
+  opacity: 0.6;
+  margin-right: 0;  /* 移除右边距，使用gap控制间距 */
+  flex-shrink: 0;  /* 防止图标被压缩 */
+}
+
+.copy-button:active {
+  opacity: 0.7;
+}
+
+.copy-button:active .copy-icon {
+  opacity: 0.9;
+}
+
+.retry-button {
+  position: absolute;
+  bottom: 10rpx;
+  left: 120rpx;  /* 位于复制按钮右侧 */
+  background: transparent;
+  border: none;
+  padding: 0;
+  height: 28rpx !important;
+  width: 140rpx !important;
+  min-width: unset !important;
+  display: flex;
+  align-items: center;
+  gap: 2rpx;
+  color: #999;
+  font-size: 26rpx;
+  z-index: 1;
+  line-height: 1;
+}
+
+.retry-icon {
+  width: 28rpx;
+  height: 28rpx;
+  opacity: 0.6;
+  margin-right: 0;
+  flex-shrink: 0;
+}
+
+.retry-button:active {
+  opacity: 0.7;
+}
+
+.retry-button:active .retry-icon {
+  opacity: 0.9;
+}
+
+.favorite-button {
+  position: absolute;
+  bottom: 10rpx;
+  left: 270rpx;  /* 位于再试一次按钮右侧 */
+  background: transparent;
+  border: none;
+  padding: 0;
+  height: 28rpx !important;
+  width: 120rpx !important;
+  min-width: unset !important;
+  display: flex;
+  align-items: center;
+  gap: 2rpx;
+  color: #999;
+  font-size: 26rpx;
+  z-index: 1;
+  line-height: 1;
+}
+
+.favorite-icon {
+  width: 28rpx;
+  height: 28rpx;
+  opacity: 0.6;
+  margin-right: 0;
+  flex-shrink: 0;
+}
+
+.favorite-button:active {
+  opacity: 0.7;
 }

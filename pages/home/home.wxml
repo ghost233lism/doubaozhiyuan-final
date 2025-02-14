@@ -54,12 +54,39 @@
             <image class="avatar-img" src="/images/ai-avatar.png" />
           </view>
           <view class="message-content">
-            <text space="emsp" decode="{{true}}">{{item.content}}</text>
+            <block wx:if="{{item.parsedContent}}">
+              <towxml nodes="{{item.parsedContent}}" />
+            </block>
+            <block wx:else>
+              <text space="emsp" decode="{{true}}">{{item.content}}</text>
+            </block>
+            <!-- 把复制按钮移到message-content内部 -->
+            <button class="copy-button" 
+                    data-text="{{item.content}}" 
+                    bindtap="copyMessage">
+              <image class="copy-icon" src="/images/copy.png" />
+              <text>复制</text>
+            </button>
+            <button class="retry-button" 
+                    bindtap="retryGenerate" 
+                    data-index="{{index}}">
+              <image class="retry-icon" src="/images/retry.png" />
+              <text>再试一次</text>
+            </button>
+            <button class="favorite-button" 
+                    bindtap="toggleFavorite" 
+                    data-message="{{item}}"
+                    data-index="{{index}}">
+              <image class="favorite-icon" src="{{item.isFavorite ? '/images/star.png' : '/images/star-unfilled.png'}}" />
+              <text>{{item.isFavorite ? '已收藏' : '收藏'}}</text>
+            </button>
           </view>
         </view>
         <!-- 用户消息 -->
         <view id="message-{{index}}" class="message-item user" wx:if="{{item.type === 'user'}}">
-          <view class="message-content">{{item.content}}</view>
+          <view class="message-content">
+            {{item.content}}
+          </view>
           <view class="avatar">我</view>
         </view>
       </block>

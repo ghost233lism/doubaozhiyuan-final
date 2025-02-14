@@ -1,0 +1,16 @@
+<view class="favorites-container">
+  <view class="favorite-item" wx:for="{{favorites}}" wx:key="timestamp">
+    <view class="content {{item.expanded ? 'expanded' : ''}}">
+      <text>{{item.expanded ? item.content : item.shortContent}}</text>
+    </view>
+    <view class="footer">
+      <text class="timestamp">{{item.timestamp}}</text>
+      <view class="actions">
+        <view class="expand-btn" bindtap="toggleExpand" data-index="{{index}}">
+          {{item.expanded ? '收起' : '查看详情'}}
+        </view>
+        <view class="delete-btn" bindtap="deleteFavorite" data-index="{{index}}">删除</view>
+      </view>
+    </view>
+  </view>
+</view> 

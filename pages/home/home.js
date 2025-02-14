@@ -3,7 +3,8 @@ Page({
     messageList: [
       {
         type: 'ai',
-        content: '你好！我是AI助手，请问有什么可以帮助你的吗？'
+        content: '你好！我是AI助手，请问有什么可以帮助你的吗？',
+        parsedContent: null
       }
     ],
     inputMessage: '',
@@ -56,6 +57,20 @@ Page({
 Background: 
 高考志愿填报对于考生和家长来说是一个重要且复杂的决策过程，涉及到考生的兴趣爱好、学科优势、职业规划以及高校专业的选择等多个方面。用户需要一个专业的高考志愿填报智能体来提供全面、准确的建议和指导，帮助他们做出最佳选择。
 
+最优解团队的创始人是孙笑涵、张佳璟、张书畅、金莫迪。他们都毕业于辽宁省实验中学。是23届永志班的毕业生。他们现在分别就读于北京大学、哈尔滨工业大学、武汉大学和南开大学。
+孙笑涵的专业是化学，现在在化学与分子工程学院，通过强基计划考入北京大学。
+张佳璟所在学院是未来技术学院，普通高考进入。 
+张书畅的专业是电子信息，普通高考进入。
+金莫迪的专业是计算机，普通高考进入。
+注意团队成员都是男生。
+最优解团队创建于2022年9月，前身是省实验学习小组，致力于打破各个学业阶段的信息差，帮助学生更好进步、完善自我。团队成员来自北京大学、南开大学、哈尔滨工业大学、武汉大学等高校，具有丰富的高考经验和专业知识。
+
+
+2024辽宁高考本科批次实行平行志愿投档，设置112个"专业+学校"志愿，1个"专业+学校"为1个志愿，考生可填报的志愿最大数量为112个，可以填满所有志愿，也可选择填报其中部分志愿。
+
+辽宁高考高职（专科）批次实行平行志愿投档，设置60个"专业+学校"志愿，1个"专业+学校"为1个志愿，考生可填报的志愿最大数量为60个，可以填满所有志愿，也可选择填报其中部分志愿。
+
+
 Current Student Info:
 ${this.data.currentProfile ? `
 - 姓名：${this.data.currentProfile.name}
@@ -67,7 +82,10 @@ ${this.data.currentProfile ? `
 Profile: 
 你是最优解团队中一位在高考志愿填报领域有着丰富经验和深厚专业知识的专家，你清楚各个省份的高考志愿可以填报的数量有多少，你清楚各个省各个院校历年的录取分数线和对应排名，熟悉高考政策、高校招生规则以及各类专业的特点和就业前景，能够根据考生的具体情况提供个性化的咨询和建议。你明白对于高考志愿填报来说，排名比分数更有参考价值，你不会给考生不切合分数实际的院校和专业推荐。
 你倾向于给出明确的方案和建议，尤其是在进行比较的时候，给出明确的判断，而不是和稀泥。
+
 你一定要弄清楚考生学文还是学理（首选物理还是首选历史）
+
+你生成的回答内容可以正确的渲染成markdown格式，使用加粗等形式标注重点内容，，不同段之间不需要用空行隔开，不要生成空行，可以使用有序列表、无序列表和emoji符号来帮助用户理解。
 
 针对家长提出的关于招生政策、录取规则等疑问，要迅速且准确地解答。比如：
 - 为家长清楚地说明各个省份的高考志愿可以填报的数量有多少，不能含糊其辞，确保真实可靠而且数据是最新的
@@ -90,6 +108,8 @@ Profile:
 
 你的回答语气应该是专业、严谨的，不要使用"呀"，"呢"等语气词。
 
+如果需要对不同对象进行比较的时候，可以添加表格来更加直观地展示。
+
 面对比较笼统的问题，不要着急给出答案，向用户提出一些问题，获取到更多信息后，再给出答案。
 
 Skills: 
@@ -110,7 +130,7 @@ Constrains:
 - 再给出建议时，既要给出院校推荐，也要给出专业推荐，时刻记住以专业+院校的视角来看待高考志愿
 
 OutputFormat: 
-以对话形式进行交流，提供详细的志愿填报建议和分析，包括文字说明以及相关资源链接等。`
+以对话形式进行交流，提供详细的志愿填报建议和分析，包括文字说明以及相关资源链接等，你要确保生成的链接是正确的且中国大陆的用户能够正常访问。`
         }
       ];
 
@@ -168,6 +188,31 @@ OutputFormat:
     });
   },
 
+  // 添加解析markdown的方法
+  parseMarkdown(content) {
+    const towxml = require('../../towxml/index');
+    return towxml(content, 'markdown', {
+      theme: 'light',
+      events: {
+        tap: (e) => {
+          // 处理链接点击
+          if (e.currentTarget.dataset.data && e.currentTarget.dataset.data.attr && e.currentTarget.dataset.data.attr.href) {
+            const url = e.currentTarget.dataset.data.attr.href;
+            wx.setClipboardData({
+              data: url,
+              success: () => {
+                wx.showToast({
+                  title: '链接已复制',
+                  icon: 'success'
+                });
+              }
+            });
+          }
+        }
+      }
+    });
+  },
+
   // 发送消息
   async sendMessage() {
     if (!this.data.currentProfile) {
@@ -201,7 +246,8 @@ OutputFormat:
       
       const aiMessage = {
         type: 'ai',
-        content: aiResponse
+        content: aiResponse,
+        parsedContent: this.parseMarkdown(aiResponse)
       };
       
       const updatedMessageList = [...newMessageList, aiMessage];
@@ -274,7 +320,8 @@ OutputFormat:
           // 添加欢迎消息
           const welcomeMsg = {
             type: 'ai',
-            content: '你好！我是AI志愿填报助手，请问有什么可以帮你？'
+            content: '你好！我是AI志愿填报助手，请问有什么可以帮你？',
+            parsedContent: null
           };
 
           this.setData({
@@ -305,7 +352,8 @@ OutputFormat:
     // 只初始化欢迎消息，个体信息的加载移到 onShow 中
     const welcomeMsg = {
       type: 'ai',
-      content: '你好！我是AI志愿填报助手，请问有什么可以帮你？'
+      content: '你好！我是AI志愿填报助手，请问有什么可以帮你？',
+      parsedContent: null
     };
 
     this.setData({
@@ -374,7 +422,8 @@ OutputFormat:
 科目选择：${profile.subjects}
 地区：${profile.province}
 
-我会基于这些信息为该考生提供更精准的志愿填报建议。请问您想了解哪些方面的信息？`
+我会基于这些信息为该考生提供更精准的志愿填报建议。请问您想了解哪些方面的信息？`,
+      parsedContent: null
     };
 
     this.setData({
@@ -393,5 +442,118 @@ OutputFormat:
     this.setData({
       showProfileSelector: false
     });
+  },
+
+  // 添加复制函数
+  copyMessage(e) {
+    const { text } = e.currentTarget.dataset;
+    wx.setClipboardData({
+      data: text,
+      success: () => {
+        wx.showToast({
+          title: '已复制',
+          icon: 'success',
+          duration: 1000
+        });
+      }
+    });
+  },
+
+  // 添加重试生成函数
+  retryGenerate: async function(e) {
+    const index = e.currentTarget.dataset.index;
+    const messages = this.data.messageList;
+    const userMessage = messages[index - 1];  // 获取上一条用户消息
+
+    if (!userMessage || userMessage.type !== 'user') {
+      wx.showToast({
+        title: '无法重新生成',
+        icon: 'none'
+      });
+      return;
+    }
+
+    // 删除当前的AI回复
+    messages.splice(index, 1);
+    
+    this.setData({
+      messageList: messages,
+      isLoading: true
+    });
+
+    try {
+      const aiResponse = await this.callDouBaoAPI(userMessage.content);
+      
+      const aiMessage = {
+        type: 'ai',
+        content: aiResponse,
+        parsedContent: this.parseMarkdown(aiResponse)
+      };
+      
+      messages.push(aiMessage);
+      
+      this.setData({
+        messageList: messages,
+        scrollToMessage: `message-${messages.length - 1}`,
+        isLoading: false
+      });
+
+      // 确保消息发送后滚动到底部
+      setTimeout(() => {
+        this.scrollToBottom();
+      }, 100);
+
+    } catch (error) {
+      wx.showToast({
+        title: '生成失败，请重试',
+        icon: 'none'
+      });
+      this.setData({
+        isLoading: false
+      });
+    }
+  },
+
+  // 添加收藏/取消收藏方法
+  toggleFavorite(e) {
+    const { message, index } = e.currentTarget.dataset;
+    const messages = this.data.messageList;
+    const favorites = wx.getStorageSync('favorites') || [];
+
+    // 切换收藏状态
+    messages[index].isFavorite = !messages[index].isFavorite;
+
+    if (messages[index].isFavorite) {
+      // 添加收藏
+      favorites.unshift({
+        ...message,
+        timestamp: new Date().toLocaleString('zh-CN', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: false
+        })
+      });
+      wx.showToast({
+        title: '已收藏',
+        icon: 'success'
+      });
+    } else {
+      // 取消收藏
+      const index = favorites.findIndex(f => f.content === message.content);
+      if (index > -1) {
+        favorites.splice(index, 1);
+      }
+      wx.showToast({
+        title: '已取消收藏',
+        icon: 'success'
+      });
+    }
+
+    // 更新状态
+    this.setData({ messageList: messages });
+    wx.setStorageSync('favorites', favorites);
   },
 }); 
