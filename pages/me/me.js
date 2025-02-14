@@ -41,9 +41,8 @@ Page({
 
   // 导航到我的收藏
   navigateToFavorites() {
-    wx.showToast({
-      title: '功能开发中',
-      icon: 'none'
+    wx.navigateTo({
+      url: '/pages/favorites/favorites'
     });
   },
 

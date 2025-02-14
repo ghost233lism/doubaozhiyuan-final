@@ -71,7 +71,7 @@ Profile:
 
 你一定要弄清楚考生学文还是学理（首选物理还是首选历史）
 
-你生成的回答内容可以正确的渲染成markdown格式，不要生成过多空行，不同段之间不需要用空行隔开，不要生成空行。
+你生成的回答内容可以正确的渲染成markdown格式，使用加粗等形式标注重点内容，，不同段之间不需要用空行隔开，不要生成空行，可以使用有序列表、无序列表和emoji符号来帮助用户理解。
 
 针对家长提出的关于招生政策、录取规则等疑问，要迅速且准确地解答。比如：
 - 为家长清楚地说明各个省份的高考志愿可以填报的数量有多少，不能含糊其辞，确保真实可靠而且数据是最新的
@@ -428,5 +428,118 @@ OutputFormat:
     this.setData({
       showProfileSelector: false
     });
+  },
+
+  // 添加复制函数
+  copyMessage(e) {
+    const { text } = e.currentTarget.dataset;
+    wx.setClipboardData({
+      data: text,
+      success: () => {
+        wx.showToast({
+          title: '已复制',
+          icon: 'success',
+          duration: 1000
+        });
+      }
+    });
+  },
+
+  // 添加重试生成函数
+  retryGenerate: async function(e) {
+    const index = e.currentTarget.dataset.index;
+    const messages = this.data.messageList;
+    const userMessage = messages[index - 1];  // 获取上一条用户消息
+
+    if (!userMessage || userMessage.type !== 'user') {
+      wx.showToast({
+        title: '无法重新生成',
+        icon: 'none'
+      });
+      return;
+    }
+
+    // 删除当前的AI回复
+    messages.splice(index, 1);
+    
+    this.setData({
+      messageList: messages,
+      isLoading: true
+    });
+
+    try {
+      const aiResponse = await this.callDouBaoAPI(userMessage.content);
+      
+      const aiMessage = {
+        type: 'ai',
+        content: aiResponse,
+        parsedContent: this.parseMarkdown(aiResponse)
+      };
+      
+      messages.push(aiMessage);
+      
+      this.setData({
+        messageList: messages,
+        scrollToMessage: `message-${messages.length - 1}`,
+        isLoading: false
+      });
+
+      // 确保消息发送后滚动到底部
+      setTimeout(() => {
+        this.scrollToBottom();
+      }, 100);
+
+    } catch (error) {
+      wx.showToast({
+        title: '生成失败，请重试',
+        icon: 'none'
+      });
+      this.setData({
+        isLoading: false
+      });
+    }
+  },
+
+  // 添加收藏/取消收藏方法
+  toggleFavorite(e) {
+    const { message, index } = e.currentTarget.dataset;
+    const messages = this.data.messageList;
+    const favorites = wx.getStorageSync('favorites') || [];
+
+    // 切换收藏状态
+    messages[index].isFavorite = !messages[index].isFavorite;
+
+    if (messages[index].isFavorite) {
+      // 添加收藏
+      favorites.unshift({
+        ...message,
+        timestamp: new Date().toLocaleString('zh-CN', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: false
+        })
+      });
+      wx.showToast({
+        title: '已收藏',
+        icon: 'success'
+      });
+    } else {
+      // 取消收藏
+      const index = favorites.findIndex(f => f.content === message.content);
+      if (index > -1) {
+        favorites.splice(index, 1);
+      }
+      wx.showToast({
+        title: '已取消收藏',
+        icon: 'success'
+      });
+    }
+
+    // 更新状态
+    this.setData({ messageList: messages });
+    wx.setStorageSync('favorites', favorites);
   },
 }); 

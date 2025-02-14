@@ -9,7 +9,8 @@
     "pages/history/history",
     "pages/history/detail/detail",
     "pages/school-detail/school-detail",
-    "pages/personality-test/personality-test"
+    "pages/personality-test/personality-test",
+    "pages/favorites/favorites"
   ],
   "window": {
     "backgroundTextStyle": "light",
