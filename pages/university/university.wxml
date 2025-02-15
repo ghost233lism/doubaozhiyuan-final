@@ -19,18 +19,18 @@
     </view>
   </view>
 
-  <!-- 切换标签 -->
-  <view class="tabs">
-    <view 
-      class="tab-item {{currentTab === 'university' ? 'active' : ''}}" 
-      bindtap="switchTab" 
-      data-tab="university"
-    >院校库</view>
-    <view 
-      class="tab-item {{currentTab === 'major' ? 'active' : ''}}" 
-      bindtap="switchTab" 
-      data-tab="major"
-    >专业库</view>
+  <!-- 切换标签栏 -->
+  <view class="tab-bar">
+    <view class="tab-item {{activeTab === 'university' ? 'active' : ''}}" 
+          bindtap="switchTab" 
+          data-tab="university">
+      院校库
+    </view>
+    <view class="tab-item {{activeTab === 'major' ? 'active' : ''}}" 
+          bindtap="switchTab" 
+          data-tab="major">
+      专业库
+    </view>
   </view>
 
   <!-- 筛选条件 -->

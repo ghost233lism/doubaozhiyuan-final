@@ -1,0 +1,94 @@
+<view class="container {{pageAnimation}}">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <view class="search-input-wrap">
+      <image class="search-icon" src="/images/search.png" />
+      <input 
+        class="search-input" 
+        placeholder="搜索专业" 
+        value="{{searchKey}}"
+        bindinput="onSearchInput"
+      />
+      <image 
+        wx:if="{{searchKey}}" 
+        class="clear-icon" 
+        src="/images/clear_search.png" 
+        bindtap="clearSearch"
+      />
+    </view>
+  </view>
+
+  <view class="tabs">
+    <view class="tab-item" bindtap="switchTab" data-tab="university">院校库</view>
+    <view class="tab-item active" bindtap="switchTab" data-tab="major">专业库</view>
+  </view>
+
+  <!-- 分类列表 -->
+  <view class="category-container">
+    <!-- 搜索结果 -->
+    <scroll-view 
+      class="category-right" 
+      scroll-y 
+      wx:if="{{showSearchResults}}"
+    >
+      <view class="search-results">
+        <view 
+          class="major-item"
+          wx:for="{{searchResults}}" 
+          wx:key="id"
+          bindtap="goToDetail"
+          data-id="{{item.id}}"
+        >
+          <view class="major-name-category">
+            <text>{{item.name}}</text>
+            <text class="category-tag">{{item.category}}</text>
+          </view>
+          <text wx:if="{{item.exists}}" class="hot-emoji">🔥</text>
+        </view>
+      </view>
+    </scroll-view>
+
+    <!-- 原有的分类列表 -->
+    <view class="category-content" wx:else>
+      <!-- 左侧一级分类 -->
+      <scroll-view class="category-left" scroll-y>
+        <view 
+          class="category-item {{currentCategory === item.id ? 'active' : ''}}"
+          wx:for="{{categories}}"
+          wx:key="id"
+          bindtap="selectCategory"
+          data-id="{{item.id}}"
+        >
+          {{item.name}}
+        </view>
+      </scroll-view>
+
+      <!-- 右侧二级分类和专业 -->
+      <scroll-view class="category-right" scroll-y>
+        <view class="subcategory-group" wx:for="{{currentSubcategories}}" wx:key="id">
+          <view 
+            class="subcategory-title {{expandedSubcategory === item.id ? 'expanded' : ''}}" 
+            bindtap="toggleSubcategory" 
+            data-id="{{item.id}}"
+          >
+            <text>{{item.name}}</text>
+            <image class="arrow-icon" src="/images/arrow-{{expandedSubcategory === item.id ? 'up' : 'down'}}.png" />
+          </view>
+          <view class="major-list {{expandedSubcategory === item.id ? 'expanded' : ''}}">
+            <view 
+              class="major-item {{major.exists ? 'exists' : ''}}"
+              wx:for="{{item.majors}}" 
+              wx:for-item="major"
+              wx:key="id"
+              bindtap="goToDetail"
+              data-id="{{major.id}}"
+            >
+              {{major.name}}
+              <text wx:if="{{major.exists}}" class="hot-emoji">🔥</text>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</view> 

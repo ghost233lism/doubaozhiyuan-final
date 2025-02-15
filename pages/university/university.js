@@ -16,7 +16,8 @@ Page({
     loading: false,
     hasMore: true,
     filteredUniversities: [],
-    handleSchoolTap: null
+    handleSchoolTap: null,
+    activeTab: 'university'  // 添加新的数据属性
   },
 
   onLoad() {
@@ -84,13 +85,16 @@ Page({
 
   // 切换标签
   switchTab(e) {
-    const tab = e.currentTarget.dataset.tab;
-    this.setData({
-      currentTab: tab,
-      page: 1,
-      hasMore: true
-    });
-    this.loadInitialData();
+    const tab = e.currentTarget.dataset.tab
+    if (tab === 'major') {
+      wx.navigateTo({
+        url: '/pages/major/major'
+      })
+    } else {
+      this.setData({
+        activeTab: 'university'
+      })
+    }
   },
 
   // 显示筛选弹窗
