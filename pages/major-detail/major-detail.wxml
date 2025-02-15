@@ -1,0 +1,72 @@
+<view class="container">
+  <view wx:if="{{loading}}" class="loading">加载中...</view>
+  <view wx:else class="major-detail">
+    <!-- 专业头部信息 -->
+    <view class="header">
+      <view class="title">{{major.name}}</view>
+      <view class="basic-info">
+        <text class="code">{{major.code}}</text>
+        <text class="category">{{major.category}} | {{major.subcategory}}</text>
+      </view>
+    </view>
+
+    <!-- 关键数据 -->
+    <view class="stats-grid">
+      <view class="stat-item">
+        <text class="value">{{major.stats.employmentRate}}</text>
+        <text class="label">就业率</text>
+      </view>
+      <view class="stat-item">
+        <text class="value">{{major.stats.avgSalary}}</text>
+        <text class="label">平均薪资</text>
+      </view>
+      <view class="stat-item">
+        <text class="value">{{major.stats.satisfaction}}</text>
+        <text class="label">满意度</text>
+      </view>
+      <view class="stat-item">
+        <text class="value">{{major.stats.schoolCount}}</text>
+        <text class="label">开设院校</text>
+      </view>
+    </view>
+
+    <!-- 专业信息卡片 -->
+    <view class="info-card">
+      <view class="card-title">专业介绍</view>
+      <view class="card-content">
+        <view class="info-item">
+          <text class="label">修业年限：</text>
+          <text class="value">{{major.length}}</text>
+        </view>
+        <view class="info-item">
+          <text class="label">授予学位：</text>
+          <text class="value">{{major.degree}}</text>
+        </view>
+        <view class="description">{{major.description}}</view>
+      </view>
+    </view>
+
+    <!-- 主要课程 -->
+    <view class="info-card">
+      <view class="card-title">主要课程</view>
+      <view class="card-content">
+        <view class="tag-list">
+          <text class="tag" wx:for="{{major.courses}}" wx:key="*this">{{item}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 就业方向 -->
+    <view class="info-card">
+      <view class="card-title">就业方向</view>
+      <view class="card-content">
+        <view class="career-list">
+          <view class="career-item" wx:for="{{major.careers}}" wx:key="*this">
+            <text class="dot">•</text>
+            <text>{{item}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view> 

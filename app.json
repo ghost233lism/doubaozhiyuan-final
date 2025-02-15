@@ -10,7 +10,9 @@
     "pages/history/detail/detail",
     "pages/school-detail/school-detail",
     "pages/personality-test/personality-test",
-    "pages/favorites/favorites"
+    "pages/favorites/favorites",
+    "pages/major/major",
+    "pages/major-detail/major-detail"
   ],
   "window": {
     "backgroundTextStyle": "light",
