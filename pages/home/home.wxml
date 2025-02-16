@@ -26,7 +26,7 @@
         </view>
       </view>
       <view class="empty-tip" wx:if="{{profiles.length === 0}}">
-        <text>暂无个体信息，请先在志愿填报页面添加</text>
+        <text>暂无个体信息，请先在“我的-我的个体”页面添加</text>
       </view>
     </view>
   </view>
