@@ -1,0 +1,18 @@
+.container {
+  padding: 20rpx;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.plan-content {
+  background: #fff;
+  border-radius: 12rpx;
+  padding: 30rpx;
+}
+
+.placeholder {
+  display: block;
+  text-align: center;
+  color: #999;
+  font-size: 28rpx;
+} 

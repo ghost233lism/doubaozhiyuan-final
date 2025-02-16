@@ -3,7 +3,9 @@ Page({
     profiles: [], // 存储所有个体信息
     showAddModal: false, // 控制添加个体弹窗
     showProvinceModal: false, // 控制选择省份弹窗
+    showYearModal: false, // 添加年份选择弹窗控制
     currentStep: 0, // 当前步骤
+    years: ['2026','2025','2024', '2023', '2022'], // 修改为近五年
     provinces: [
       '北京', '天津', '上海', '重庆', '河北', '山西', '辽宁', '吉林', '黑龙江',
       '江苏', '浙江', '安徽', '福建', '江西', '山东', '河南', '湖北', '湖南',
@@ -13,6 +15,7 @@ Page({
     formData: {
       name: '',
       province: '',
+      year: '', // 添加年份字段
       score: '',
       rank: '',
       interests: [],
@@ -47,6 +50,7 @@ Page({
       formData: {
         name: '',
         province: '',
+        year: '', // 添加年份字段
         score: '',
         rank: '',
         interests: [],
@@ -63,6 +67,7 @@ Page({
     this.setData({
       showAddModal: false,
       showProvinceModal: false,
+      showYearModal: false,
       isEditing: false,
       editingId: null
     });
@@ -158,9 +163,9 @@ Page({
         }
         break;
       case 1:
-        if (!formData.province) {
+        if (!formData.province || !formData.year) {
           wx.showToast({
-            title: '请选择省份',
+            title: '请选择省份和年份',
             icon: 'none'
           });
           return false;
@@ -316,6 +321,7 @@ Page({
       formData: {
         name: profile.name,
         province: profile.province,
+        year: profile.year || '', // 添加年份字段
         score: profile.score,
         rank: profile.rank,
         interests: profile.interests,
@@ -354,6 +360,22 @@ Page({
     this.setData({
       selectedSubjects,
       'formData.subjects': selectedItems
+    });
+  },
+
+  // 显示年份选择器
+  showYearSelector() {
+    this.setData({
+      showYearModal: true
+    });
+  },
+
+  // 选择年份
+  selectYear(e) {
+    const year = e.currentTarget.dataset.year;
+    this.setData({
+      'formData.year': year,
+      showYearModal: false
     });
   },
 }); 

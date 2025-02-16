@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/home/home",
+    "pages/plan/plan",
     "pages/university/university",
     "pages/application/application",
     "pages/me/me",
@@ -38,10 +39,10 @@
         "selectedIconPath": "images/home-active.png"
       },
       {
-        "pagePath": "pages/application/application",
-        "text": "志愿填报",
-        "iconPath": "images/application.png",
-        "selectedIconPath": "images/application-active.png"
+        "pagePath": "pages/plan/plan",
+        "text": "志愿方案",
+        "iconPath": "images/plan.png",
+        "selectedIconPath": "images/plan-active.png"
       },
       {
         "pagePath": "pages/university/university",

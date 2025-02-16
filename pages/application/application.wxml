@@ -52,11 +52,26 @@
         />
       </view>
 
-      <!-- 步骤2：选择省份 -->
+      <!-- 步骤2：选择省份和年份 -->
       <view class="step-content" wx:if="{{currentStep === 1}}">
-        <view class="province-selector" bindtap="showProvinceSelector">
-          <text>{{formData.province || '请选择省份'}}</text>
-          <image class="arrow-icon" src="/images/arrow-down.png" />
+        <view class="selector-group">
+          <!-- 省份选择器 -->
+          <view class="selector" bindtap="showProvinceSelector">
+            <text class="selector-label">选择省份</text>
+            <view class="selector-value">
+              <!-- <text>{{formData.province || '请选择'}}</text> -->
+              <!-- <image class="arrow-icon" src="/images/arrow-down.png" /> -->
+            </view>
+          </view>
+          
+          <!-- 年份选择器 -->
+          <view class="selector" bindtap="showYearSelector">
+            <text class="selector-label">高考年份</text>
+            <view class="selector-value">
+              <!-- <text>{{formData.year || '请选择'}}</text> -->
+              <!-- <image class="arrow-icon" src="/images/arrow-down.png" /> -->
+            </view>
+          </view>
         </view>
       </view>
 
@@ -133,6 +148,26 @@
           hover-class="hover"
         >
           {{item}}
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 年份选择弹窗 -->
+  <view class="year-modal" wx:if="{{showYearModal}}">
+    <view class="modal-mask" bindtap="closeModals"></view>
+    <view class="year-content">
+      <view class="year-list">
+        <view 
+          class="year-item {{formData.year === year ? 'selected' : ''}}"
+          wx:for="{{years}}"
+          wx:key="*this"
+          wx:for-item="year"
+          bindtap="selectYear"
+          data-year="{{year}}"
+          hover-class="hover"
+        >
+          {{year}}年
         </view>
       </view>
     </view>

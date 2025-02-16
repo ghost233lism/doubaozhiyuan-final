@@ -45,6 +45,13 @@ Page({
       url: '/pages/favorites/favorites'
     });
   },
+  
+  // 导航到我的个体
+  navigateToMyEntity() {
+    wx.navigateTo({
+      url: '/pages/application/application'
+    })
+  },
 
   // 导航到历史记录
   navigateToHistory() {
@@ -67,12 +74,7 @@ Page({
     });
   },
 
-  // 导航到我的个体
-  navigateToMyEntity() {
-    wx.navigateTo({
-      url: '/pages/application/application'
-    })
-  },
+  
 
   // 清除缓存
   clearCache() {

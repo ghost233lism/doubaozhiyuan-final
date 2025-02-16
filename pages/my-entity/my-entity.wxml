@@ -1,6 +1,2 @@
-<view class="container">
-  <view class="entity-list">
-    <!-- 这里可以根据需求添加具体内容 -->
-    <view class="empty-tip">暂无个体信息</view>
-  </view>
-</view> 
+<!--pages/my-entity/my-entity.wxml-->
+<text>pages/my-entity/my-entity.wxml</text>
