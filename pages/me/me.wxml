@@ -63,5 +63,14 @@
       </view>
       <image class="arrow" src="/images/arrow-right.png" />
     </view>
+
+    <!-- 我的个体 -->
+    <view class="menu-item" bindtap="navigateToMyEntity">
+      <view class="menu-item-left">
+        <image class="menu-icon" src="/images/icon-entity.png" />
+        <text>我的个体</text>
+      </view>
+      <image class="arrow" src="/images/arrow-right.png" />
+    </view>
   </view>
 </view> 

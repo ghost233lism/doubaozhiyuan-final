@@ -12,7 +12,8 @@
     "pages/personality-test/personality-test",
     "pages/favorites/favorites",
     "pages/major/major",
-    "pages/major-detail/major-detail"
+    "pages/major-detail/major-detail",
+    "pages/my-entity/my-entity"
   ],
   "window": {
     "backgroundTextStyle": "light",

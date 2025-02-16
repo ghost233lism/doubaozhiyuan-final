@@ -135,7 +135,7 @@ OutputFormat:
       ];
 
       // 添加历史对话记录，最多保留最近的10条对话
-      const historyMessages = this.data.messageList.slice(-10);
+      const historyMessages = this.data.messageList.slice(-15);
       historyMessages.forEach(msg => {
         messages.push({
           role: msg.type === 'ai' ? 'assistant' : 'user',

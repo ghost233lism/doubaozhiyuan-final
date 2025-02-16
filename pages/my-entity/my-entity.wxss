@@ -1,0 +1,13 @@
+.container {
+  padding: 20rpx;
+}
+
+.entity-list {
+  width: 100%;
+}
+
+.empty-tip {
+  text-align: center;
+  color: #999;
+  padding: 40rpx 0;
+} 

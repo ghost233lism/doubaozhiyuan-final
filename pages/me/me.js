@@ -67,6 +67,13 @@ Page({
     });
   },
 
+  // 导航到我的个体
+  navigateToMyEntity() {
+    wx.navigateTo({
+      url: '/pages/application/application'
+    })
+  },
+
   // 清除缓存
   clearCache() {
     wx.showModal({
